@@ -1,0 +1,76 @@
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-thumbnails {
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: row;
+    align-content: flex-start;
+}
+
+.voxelTypeButton {
+    width: 100%;
+    margin: 1px;
+    border-radius: 2px;
+    border: none;
+}
+
+.voxelTypeButton:hover {
+    background-color: #b8b3b3;
+}
+
+.colorSquare {
+    width: 32px;
+    height: 32px;
+    margin: 4px;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.voxelName {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+
+.sectionOutline {
+    padding: 5px;
+    border-bottom: solid 4px black;
+}
+
+.flex-container button {
+    border: none;
+    width: 32px;
+    height: 32px;
+    margin: 2px;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.flex-container button:hover {
+    background-color: #b8b3b3;
+}
+
+.input-container {
+    padding: 4px;
+}
+
+.input-container-tab {
+    display: inline-flex;    
+    padding-left: 5px;
+}
+
+:root {
+    --vcbedrock: #2e2e2e;
+    --vcstone: #969696;
+    --vcmetal: #3b4047;
+    --vcwood: #9e6406;
+    --vcice: #8690b0;
+    --vcvine: #77b037;
+    --vcdirt: #422301;
+    --vcgrass: #00610d;
+    --vcsand: #f2e7ac;
+}

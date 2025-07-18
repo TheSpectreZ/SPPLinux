@@ -1,0 +1,78 @@
+{
+    "empty": [],
+    "lights": [],
+    "materials": [
+        {
+            "name": "Material",
+            "parameters": {
+                "alpha": {
+                    "type": "constant",
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "type": "constant",
+                    "value": "0.800000011920929 0.800000011920929 0.800000011920929 1.0"
+                },
+                "metallic": {
+                    "type": "constant",
+                    "value": "0.0"
+                },
+                "normal": {
+                    "type": "constant",
+                    "value": "0.0 0.0 0.0"
+                },
+                "roughness": {
+                    "type": "constant",
+                    "value": "0.5"
+                },
+                "specular": {
+                    "type": "constant",
+                    "value": "0.5"
+                }
+            }
+        }
+    ],
+    "meshdata": [
+        {
+            "data": "AgAAAAAAAAAkAAAAAACAwNDMzD0AAIBAAAAAAAAAgD8AAAAAAABgPwAAAD8AAIBA0MzMPQAAgMAAAAAAAACAPwAAAAAAACA/AACAPgAAgEDQzMw9AACAQAAAAAAAAIA/AAAAAAAAID8AAAA/AACAQNDMzD0AAIDAAAAAAAAAAAAAAIC/AAAgPwAAgD4AAIDA0MzMvQAAgMAAAAAAAAAAAAAAgL8AAMA+AAAAAAAAgEDQzMy9AACAwAAAAAAAAAAAAACAvwAAwD4AAIA+AACAwNDMzD0AAIDAAACAvwAAAAAAAAAAAAAgPwAAgD8AAIDA0MzMvQAAgEAAAIC/AAAAAAAAAAAAAMA+AABAPwAAgMDQzMy9AACAwAAAgL8AAAAAAAAAAAAAwD4AAIA/AACAQNDMzL0AAIBAAAAAAAAAgL8AAAAAAADAPgAAAD8AAIDA0MzMvQAAgMAAAAAAAACAvwAAAAAAAAA+AACAPgAAgMDQzMy9AACAQAAAAAAAAIC/AAAAAAAAAD4AAAA/AACAQNDMzD0AAIBAAACAPwAAAAAAAAAAAAAgPwAAAD8AAIBA0MzMvQAAgMAAAIA/AAAAAAAAAAAAAMA+AACAPgAAgEDQzMy9AACAQAAAgD8AAAAAAAAAAAAAwD4AAAA/AACAwNDMzD0AAIBAAAAAAAAAAAAAAIA/AAAgPwAAQD8AAIBA0MzMvQAAgEAAAAAAAAAAAAAAgD8AAMA+AAAAPwAAgMDQzMy9AACAQAAAAAAAAAAAAACAPwAAwD4AAEA/AACAwNDMzD0AAIBAAAAAAAAAgD8AAAAAAABgPwAAAD8AAIDA0MzMPQAAgMAAAAAAAACAPwAAAAAAAGA/AACAPgAAgEDQzMw9AACAwAAAAAAAAIA/AAAAAAAAID8AAIA+AACAQNDMzD0AAIDAAAAAAAAAAAAAAIC/AAAgPwAAgD4AAIDA0MzMPQAAgMAAAAAAAAAAAAAAgL8AACA/AAAAAAAAgMDQzMy9AACAwAAAAAAAAAAAAACAvwAAwD4AAAAAAACAwNDMzD0AAIDAAACAvwAAAAAAAAAAAAAgPwAAgD8AAIDA0MzMPQAAgEAAAIC/AAAAAAAAAAAAACA/AABAPwAAgMDQzMy9AACAQAAAgL8AAAAAAAAAAAAAwD4AAEA/AACAQNDMzL0AAIBAAAAAAAAAgL8AAAAAAADAPgAAAD8AAIBA0MzMvQAAgMAAAAAAAACAvwAAAAAAAMA+AACAPgAAgMDQzMy9AACAwAAAAAAAAIC/AAAAAAAAAD4AAIA+AACAQNDMzD0AAIBAAACAPwAAAAAAAAAAAAAgPwAAAD8AAIBA0MzMPQAAgMAAAIA/AAAAAAAAAAAAACA/AACAPgAAgEDQzMy9AACAwAAAgD8AAAAAAAAAAAAAwD4AAIA+AACAwNDMzD0AAIBAAAAAAAAAAAAAAIA/AAAgPwAAQD8AAIBA0MzMPQAAgEAAAAAAAAAAAAAAgD8AACA/AAAAPwAAgEDQzMy9AACAQAAAAAAAAAAAAACAPwAAwD4AAAA/",
+            "name": "Cube",
+            "uvinfo": [
+                "UVMap"
+            ]
+        }
+    ],
+    "meshes": [
+        {
+            "materials": [
+                "Material"
+            ],
+            "mesh": "Cube",
+            "name": "Cube",
+            "properties": {
+                "dont_export": false,
+                "enable_collisions": true,
+                "export_as_sdf": false,
+                "hidden_in_game": false
+            },
+            "transform": {
+                "location": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    -0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        }
+    ],
+    "sdfs": [],
+    "version": "3.1"
+}

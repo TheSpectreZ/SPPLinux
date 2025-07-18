@@ -1,0 +1,29 @@
+{
+    "name": "mat",
+    "parameters": {
+        "alpha": {
+            "type": "constant",
+            "value": "1.0"
+        },
+        "diffuse": {
+            "type": "constant",
+            "value": "1.0 1.0 1.0"
+        },
+        "metallic": {
+            "type": "constant",
+            "value": "0.5"
+        },
+        "normal": {
+            "type": "constant",
+            "value": "0.0 0.0 0.0"
+        },
+        "roughness": {
+            "type": "constant",
+            "value": "0.5"
+        },
+        "specular": {
+            "type": "constant",
+            "value": "0.5"
+        }
+    }
+}

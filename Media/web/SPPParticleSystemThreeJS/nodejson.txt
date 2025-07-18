@@ -1,0 +1,317 @@
+{
+	"Types" : [
+		{
+			"Name" : "Float",
+			"Members" : [
+				{ "Name" : "Value", "Type" : "float" }
+			]
+		},
+		{
+			"Name" : "Vector2",
+			"Members" : [
+				{ 
+					"Name" : "Value", 
+					"Type" : "float[2]",
+					"Union" : [
+						{ "Name" : "x", "Type" : "float" },
+						{ "Name" : "y", "Type" : "float" }					
+					]					
+				}
+			]
+		},		
+		{
+			"Name" : "Vector3",
+			"Members" : [
+				{ 
+					"Name" : "Value", 
+					"Type" : "float[3]",
+					"Union" : [
+						{ "Name" : "x", "Type" : "float" },
+						{ "Name" : "y", "Type" : "float" },
+						{ "Name" : "z", "Type" : "float" }
+					]					
+				}
+			]
+		},
+		{
+			"Name" : "Vector4",
+			"Members" : [
+				{ 
+					"Name" : "Value", 
+					"Type" : "float[4]",
+					"Union" : [
+						{ "Name" : "x", "Type" : "float" },
+						{ "Name" : "y", "Type" : "float" },
+						{ "Name" : "z", "Type" : "float" },
+						{ "Name" : "w", "Type" : "float" }
+					]					
+				}
+			]
+		},
+		{
+			"Name" : "Matrix2x2",
+			"Members" : [
+				{ "Name" : "Value", "Type" : "float[4]" }
+			]
+		},
+		{
+			"Name" : "Matrix3x3",
+			"Members" : [
+				{ "Name" : "Value", "Type" : "float[9]" }
+			]
+		},
+		{
+			"Name" : "Matrix4x4",
+			"Members" : [
+				{ "Name" : "Value", "Type" : "float[16]" }
+			]
+		}
+	],
+	"Nodes" : [
+		{
+			"Name" : "ConstFloat",
+			"Members" : [
+				{
+					"Name" : "Value",
+					"Type" : "Float",
+					"IsOutput" : "1"
+				}
+			]		
+		},
+		{
+			"Name" : "ConstVector2",
+			"Members" : [
+				{
+					"Name" : "Value",
+					"Type" : "Vector2",
+					"IsOutput" : "1"
+				}
+			]		
+		},
+		{
+			"Name" : "ConstVector3",
+			"Members" : [
+				{
+					"Name" : "Value",
+					"Type" : "Vector3",
+					"IsOutput" : "1"
+				}
+			]		
+		},
+		{
+			"Name" : "ConstVector4",
+			"Members" : [
+				{
+					"Name" : "Value",
+					"Type" : "Vector4",
+					"IsOutput" : "1"
+				}
+			]		
+		},
+		
+		{
+			"Name" : "ParameterFloat",
+			"Members" : [
+				{
+					"Name" : "Name",
+					"Type" : "String"
+				},
+				{
+					"Name" : "Name",
+					"Type" : "Float",
+					"IsOutput" : "1"
+				}
+			]		
+		},	
+		
+		{
+			"Name" : "BreakVector2",
+			"Inputs" : [
+				{
+					"Name" : "Value",
+					"Type" : "Vector2"				
+				}
+			],
+			"Outputs" : [
+				{
+					"Name" : "X",
+					"Type" : "Float"			
+				},
+				{
+					"Name" : "Y",
+					"Type" : "Float"			
+				}
+			]
+		},		
+		{
+			"Name" : "BreakVector3",
+			"Inputs" : [
+				{
+					"Name" : "Value",
+					"Type" : "Vector3"				
+				}
+			],
+			"Outputs" : [
+				{
+					"Name" : "X",
+					"Type" : "Float"			
+				},
+				{
+					"Name" : "Y",
+					"Type" : "Float"				
+				},
+				{
+					"Name" : "Z",
+					"Type" : "Float"			
+				}
+			]	
+		},
+		{
+			"Name" : "BreakVector4",
+			"Inputs" : [
+				{
+					"Name" : "Value",
+					"Type" : "Vector4"				
+				}
+			],
+			"Outputs" : [
+				{
+					"Name" : "X",
+					"Type" : "Float"				
+				},
+				{
+					"Name" : "Y",
+					"Type" : "Float"				
+				},
+				{
+					"Name" : "Z",
+					"Type" : "Float"				
+				},
+				{
+					"Name" : "W",
+					"Type" : "Float"
+				}
+			]
+		},
+		
+		{
+			"Name" : "TextureSample",
+			"Inputs" : [
+				{
+					"Name" : "UV",
+					"Type" : "Vector2"				
+				}
+			],
+			"Outputs" : [
+				{
+					"Name" : "Color",
+					"Type" : "Vector4"				
+				}
+			]			
+		},
+				
+		{
+			"Name" : "MathAdd",
+			"Inputs" : [
+				{
+					"Name" : "A",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				},
+				{
+					"Name" : "B",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				}
+			],
+			"Outputs" : [
+				{
+					"Name" : "Output",
+					"Type" : "Float,Vector2,Vector3,Vector4"
+				}
+			]
+		},
+		{
+			"Name" : "MathSubtract",
+			"Inputs" : [
+				{
+					"Name" : "A",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				},
+				{
+					"Name" : "B",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				}
+			],
+			"Outputs" : [
+				{
+					"Name" : "Output",
+					"Type" : "Float,Vector2,Vector3,Vector4"
+				}
+			]			
+		},
+		{
+			"Name" : "MathMultiply",
+			"Inputs" : [
+				{
+					"Name" : "A",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				},
+				{
+					"Name" : "B",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				}
+			],
+			"Outputs" : [
+				{
+					"Name" : "Output",
+					"Type" : "Float,Vector2,Vector3,Vector4"
+				}
+			]			
+		},	
+		{
+			"Name" : "MathDivide",
+			"Inputs" : [
+				{
+					"Name" : "A",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				},
+				{
+					"Name" : "B",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				}
+			],
+			"Outputs" : [
+				{
+					"Name" : "Output",
+					"Type" : "Float,Vector2,Vector3,Vector4"				
+				}
+			]
+			
+		},
+		
+		{
+			"Name" : "PBROutput",
+			"Inputs" : [
+				{
+					"Name" : "Diffuse",
+					"Type" : "Vector3"		
+				},
+				{
+					"Name" : "Emissive",
+					"Type" : "Vector3"				
+				},
+				{
+					"Name" : "Roughness",
+					"Type" : "Float"				
+				},
+				{
+					"Name" : "Metalness",
+					"Type" : "Float"				
+				},
+				{
+					"Name" : "Opacity",
+					"Type" : "Float"				
+				}
+			]			
+		}	
+	]
+}

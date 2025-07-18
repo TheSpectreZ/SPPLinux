@@ -1,0 +1,93 @@
+.SO_Root {
+    background-color: #1a1a1a;
+
+    scrollbar-gutter: initial;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 5px;
+}
+
+.SO-HeaderCell {
+    background-color: #555555;
+    border: 2px solid black;
+    color: rgb(255, 255, 255);
+}
+
+.SO-Content {
+    display: none;
+}
+
+.SO-Content.activated {
+    display: block;
+}
+
+.SO-Toggle {
+    align-self: center;
+    transition: transform 0.3s;
+}
+
+.SO-Toggle.activated {
+    transform: rotate(90deg);
+}
+
+.SO-Row {
+    display: flex;
+}
+
+.SO-Cell {
+    padding: 6px;
+    display: inline-flex;
+    width: 100%;
+    user-select: none;
+    cursor: pointer;
+}
+
+.SO-NameContainer {
+    display: flex;
+}
+
+.SO-NameContainer:hover {
+    background-color: rgb(43, 43, 43);
+}
+
+.SO-NameContainer:active {
+    background-color: rgb(161, 57, 57);
+}
+
+.SO-Col-Label {
+    width: 55%;
+}
+
+.SO-Col-Type {
+    width: 45%;
+}
+
+.SO-ContextMenuRoot {
+    position: absolute;
+    display: none;
+
+    border-radius: 2px;
+    border: rgb(5, 5, 5) solid 2px;
+    border-bottom: rgb(5, 5, 5) solid 1px;
+    background-color: rgb(71, 79, 84);
+    color: white;
+}
+
+.SO-ContextMenuItem {
+    padding: 0.5em;
+    border-bottom: 1px solid rgb(5, 5, 5);
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+}
+
+.SO-ContextMenuItem:hover {
+    background-color: rgb(73, 111, 181);
+}
+
+.SO-ContextMenuItem:active {
+    background-color: #6d2f2f;
+}

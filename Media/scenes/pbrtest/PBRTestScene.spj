@@ -1,0 +1,443 @@
+{
+    "empty": [],
+    "lights": [],
+    "materials": [
+        {
+            "name": "Scales",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "name": "armored-dragon-scales_albedo.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "metallic": {
+                    "value": "0.0"
+                },
+                "roughness": {
+                    "name": "armored-dragon-scales_roughness.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "specular": {
+                    "value": "0.5"
+                }
+            }
+        },
+        {
+            "name": "Dunes",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "name": "rocky-dunes1_albedo.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "metallic": {
+                    "value": "0.0"
+                },
+                "roughness": {
+                    "name": "rocky-dunes1_roughness.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "specular": {
+                    "value": "0.5"
+                }
+            }
+        },
+        {
+            "name": "FullMetal",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "value": "0.800000011920929 0.800000011920929 0.800000011920929 1.0"
+                },
+                "metallic": {
+                    "value": "1.0"
+                },
+                "normal": {
+                    "value": "0.0 0.0 0.0"
+                },
+                "roughness": {
+                    "value": "1.0"
+                },
+                "specular": {
+                    "value": "0.5145454406738281"
+                }
+            }
+        },
+        {
+            "name": "Grass",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "name": "grass1-albedo3.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "metallic": {
+                    "value": "0.0"
+                },
+                "roughness": {
+                    "name": "grass1-rough.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "specular": {
+                    "value": "0.5"
+                }
+            }
+        },
+        {
+            "name": "TidalPool",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "name": "tidal-pool1-albedo.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "metallic": {
+                    "value": "0.0"
+                },
+                "normal": {
+                    "value": "0.0 0.0 0.0"
+                },
+                "roughness": {
+                    "name": "tidal-pool1-roughness.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "specular": {
+                    "value": "0.5"
+                }
+            }
+        },
+        {
+            "name": "Material.001",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "value": "0.800000011920929 0.800000011920929 0.800000011920929 1.0"
+                },
+                "metallic": {
+                    "value": "0.0"
+                },
+                "normal": {
+                    "value": "0.0 0.0 0.0"
+                },
+                "roughness": {
+                    "value": "0.48181816935539246"
+                },
+                "specular": {
+                    "value": "0.4854545593261719"
+                }
+            }
+        },
+        {
+            "name": "FullMetalSmooth",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "value": "0.800000011920929 0.800000011920929 0.800000011920929 1.0"
+                },
+                "metallic": {
+                    "value": "1.0"
+                },
+                "normal": {
+                    "value": "0.0 0.0 0.0"
+                },
+                "roughness": {
+                    "value": "0.0"
+                },
+                "specular": {
+                    "value": "0.5"
+                }
+            }
+        },
+        {
+            "name": "RustedMetal",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "name": "rusted-steel_albedo.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "metallic": {
+                    "name": "rusted-steel_metallic.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "roughness": {
+                    "name": "rusted-steel_roughness.png",
+                    "type": "texture",
+                    "uvmap": ""
+                },
+                "specular": {
+                    "value": "0.5"
+                }
+            }
+        },
+        {
+            "name": "FullMetalMid",
+            "parameters": {
+                "alpha": {
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "value": "0.800000011920929 0.800000011920929 0.800000011920929 1.0"
+                },
+                "metallic": {
+                    "value": "1.0"
+                },
+                "normal": {
+                    "value": "0.0 0.0 0.0"
+                },
+                "roughness": {
+                    "value": "0.4854545593261719"
+                },
+                "specular": {
+                    "value": "0.5072727203369141"
+                }
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "materials": [
+                "RustedMetal"
+            ],
+            "mesh": "Sphere",
+            "name": "Sphere",
+            "transform": {
+                "location": [
+                    -2.0,
+                    0.0,
+                    -2.0286
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "materials": [
+                "Scales"
+            ],
+            "mesh": "Sphere.001",
+            "name": "Sphere.001",
+            "transform": {
+                "location": [
+                    0.0,
+                    0.0,
+                    -2.0286
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "materials": [
+                "TidalPool"
+            ],
+            "mesh": "Sphere.002",
+            "name": "Sphere.002",
+            "transform": {
+                "location": [
+                    2.0,
+                    0.0,
+                    -2.0286
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "materials": [
+                "Dunes"
+            ],
+            "mesh": "Sphere.003",
+            "name": "Sphere.003",
+            "transform": {
+                "location": [
+                    -2.0,
+                    0.0,
+                    -0.0286
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "materials": [
+                "Grass"
+            ],
+            "mesh": "Sphere.004",
+            "name": "Sphere.004",
+            "transform": {
+                "location": [
+                    0.0,
+                    0.0,
+                    -0.0286
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "materials": [
+                "Material.001"
+            ],
+            "mesh": "Sphere.005",
+            "name": "Sphere.005",
+            "transform": {
+                "location": [
+                    2.0,
+                    0.0,
+                    -0.0286
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "materials": [
+                "FullMetal"
+            ],
+            "mesh": "Sphere.006",
+            "name": "Sphere.006",
+            "transform": {
+                "location": [
+                    2.0,
+                    0.0,
+                    1.9714
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "materials": [
+                "FullMetalMid"
+            ],
+            "mesh": "Sphere.007",
+            "name": "Sphere.007",
+            "transform": {
+                "location": [
+                    0.0,
+                    0.0,
+                    1.9714
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        },
+        {
+            "materials": [
+                "FullMetalSmooth"
+            ],
+            "mesh": "Sphere.008",
+            "name": "Sphere.008",
+            "transform": {
+                "location": [
+                    -2.0,
+                    0.0,
+                    1.9714
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.5,
+                    0.5,
+                    0.5
+                ]
+            }
+        }
+    ],
+    "sdfs": [],
+    "version": "2.0"
+}

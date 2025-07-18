@@ -1,0 +1,4 @@
+{
+    "map" : "arena/collisionarena",
+    "brain" : "VgDemoBrain"
+}

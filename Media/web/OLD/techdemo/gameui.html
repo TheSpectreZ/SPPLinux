@@ -1,0 +1,396 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<!--
+--caput-mortuum: #4f3130ff;
+--wine: #753742ff;
+--redwood: #aa5042ff;
+--ecru: #d8bd8aff;
+--flax: #d8d78fff; -->
+
+<style>
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+:root {
+--eerie-black: #1b2021ff;
+--ebony: #51513dff;
+--moss-green: #a6a867ff;
+--vanilla: #e3dc95ff;
+--pearl: #e3dcc2ff;
+}
+@font-face {
+	font-family: "RingsFont";
+	src: url("./fonts/RingbearerMedium-51mgZ.ttf") format("truetype");
+}
+* {
+	font-family: "RingsFont";
+}
+/*	
+	button {
+	  background-color:var(--vanilla); 
+	  border-color: var(--ebony);
+	  color: black;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  font-size: 16px;
+		border-radius: 12px;
+		margin-bottom: 10px;
+		font-size:20px;
+}
+		
+		
+		
+		*/
+button {
+	aspect-ratio : 1 / 1;
+	color: #FFFFFF;	
+	background-color: var(--CTheme3);
+}
+button:hover {
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+}
+button:active {
+	text-shadow: 0 0 7px #69624D, 0 0 10px #69624D, 0 0 21px #69624D, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+}
+.txt-scroll {
+	background: linear-gradient( to right, #000000 20%, #000000 25%, #FF3900 30%, #000000 35% );
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-fill-color: transparent;
+	background-size: 500% auto;
+	animation: textShine 3s ease-in-out infinite;
+}
+@keyframes textShine {
+0% {
+background-position: 0% 50%;
+}
+100% {
+background-position: 100% 50%;
+}
+}
+.gildedBorder {
+	background-clip: border-box;
+	background-color: var(--vanilla);
+	border: 20px solid;
+	border-image: url("img/gildedborder.svg");
+	border-radius: 30px;
+	width: 75%;
+	border-image-slice: 250 250 250 250;
+}
+#bottom-align {
+	position: absolute;
+	bottom: 0;
+	left: 20px;
+}
+.action-bar {
+	position: absolute;
+	left: 50%;
+	bottom: 40px;
+	width: 20%;
+	display: grid; /* or inline-flex */
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	transform: translate(-50%, 0);
+}
+.top-center-align {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	padding: 0px;
+	top: 10px;
+}
+.bottom-center-align {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	padding: 0px;
+	bottom: 10px;
+}
+#top-right-align {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+#cursor {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 32px;
+	height: 32px;
+	transform: translate(-30%, -30%);
+	z-index: 50;
+}
+hr {
+	border: 1px dotted var(--ebony);
+}
+.console-bar {
+	color: white;
+	font-family: courier, courier new, serif;
+	background: rgba(0,0,0,0.7);
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 150px;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+}
+.row-flex {
+	display: flex;
+	flex-direction: row;
+}
+	.character-container {
+		position: absolute;
+		left: 20px;
+		top: 20px;
+		width: 30%;
+		
+		padding: 2px 2px 2px 2px;
+	}
+	.character-grid {
+		width: 100%;
+		margin: 0px;
+		padding: 0px;
+		display: grid;
+		column-gap: 2px;
+		grid-template-columns: 1fr 6fr;
+	}
+.progress-bar-container {
+	aspect-ratio: 10;
+	width: 100%;
+}
+.progress-bar-indicator {
+	height: 100%;
+	border-radius: 0px;
+	/* this will do the magic */
+	-webkit-mask: linear-gradient(#fff 0 0);
+	mask: linear-gradient(#fff 0 0);
+}
+.progress-bar-indicator::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: linear-gradient(to right, red 10%, yellow 30%, green); /* your gradient here */
+}
+	
+
+.magic-bar-indicator {
+	height: 100%;
+	border-radius: 0px;
+	/* this will do the magic */
+	-webkit-mask: linear-gradient(#fff 0 0);
+	mask: linear-gradient(#fff 0 0);
+}
+.magic-bar-indicator::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: linear-gradient(to right, rgba(165,0,255,1.00) 10%, rgba(185,56,255,1.00) 30%, blue); /* your gradient here */
+}
+	
+.bottom-bar-text {
+	position: absolute;
+	font-size: 30px;
+	top: -5px;
+	color: var(--eerie-black);
+	text-shadow: 1px 1px 0px var(--ebony);
+}
+.fa-wind {
+	text-shadow: 2px 2px 0px var(--ebony);
+}
+.fa-table-cells {
+	text-shadow: 2px 2px 0px var(--ebony);
+}
+.fa-stroopwafel {
+	text-shadow: 2px 2px 0px var(--ebony);
+}
+.fa-wind {
+	text-shadow: 2px 2px 0px var(--ebony);
+}
+</style>
+<title>Tech Demo</title>
+<link href="../fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css">
+<link href="../fontawesome/css/brands.css" rel="stylesheet" type="text/css">
+<link href="../fontawesome/css/solid.css" rel="stylesheet" type="text/css">
+
+<link href="./css/gamestyle.css" rel="stylesheet" type="text/css">
+
+	
+</head>
+
+<body style="background-color:rgba(0, 0, 0, 0); ">
+	<div id="escMenu" style="z-index: 100; display: none; position: absolute; width: 100%; height: 100%; background-color:rgba(0, 0, 0, 0.7);"> 
+		<div style="width: 30%; margin: 2%;">
+			<button onclick="javascript: LoadMainMenuMap()"> Exit Game </button><br><br>
+			<button onclick="javascript: Resume()"> Resume </button>
+		</div>
+	</div>
+
+<!-- <img src = "./img/cursor.svg" id="cursor" alt=""/> -->
+<div class="character-container" style="background-color: var(--CTheme4); border-radius: 20px; border: solid; border-color: var(--CTheme5); ">
+	<div class="character-grid">
+		
+	<div style="grid-area: 1 / 1 / 3 / 2; aspect-ratio: 1/1;  width: 100%; height: 100%; background-color: var(--CTheme3); border-radius: 20px; overflow: hidden;">
+	
+		<div style="margin: 0; position: relative; left: 0%; top: 50%; transform: translate(0%, -50%); text-align: center;" >Mage</div>
+		
+	</div>
+	
+	<div style="margin: 2px; grid-area: 1 / 2 / 2 / 3; border-radius: 20px; overflow: hidden; text-align: center;">
+  		 <div style="background-color: green; width: 100%; height: 100%;">
+		
+		<div style="margin: 0; position: relative; left: 0%; top: 50%; transform: translate(0%, -50%); text-align: center;" >Health</div>
+			 
+		</div>
+	</div>	
+		
+	<div style="margin: 2px; grid-area: 2 / 2 / 3 / 3; border-radius: 20px; overflow: hidden; text-align: center;">
+		<div style="background-color: blue; width: 100%;  height: 100%;">
+		<div style="margin: 0; position: relative; left: 0%; top: 50%; transform: translate(0%, -50%); text-align: center;" >Mana</div>
+		</div>
+	</div>	
+		
+</div>
+	
+	</div>
+<div class="action-bar">
+	
+	 <div style="margin: 4px 4px 4px 4px; text-align: center; background-color: var(--CTheme4); color: var(--CTheme1); "><b>1</b></div>
+	 <div style="margin: 4px 4px 4px 4px; text-align: center; background-color: var(--CTheme4); color: var(--CTheme1);"><b>2</b></div>
+	 <div style="margin: 4px 4px 4px 4px; text-align: center; background-color: var(--CTheme4); color: var(--CTheme1);"><b>3</b></div>
+	 <div style="margin: 4px 4px 4px 4px; text-align: center; background-color: var(--CTheme4); color: var(--CTheme1);"><b>4</b></div>
+	
+  <button style="width: 100%;">     
+    <i class="fas fa-wind fa-3x" ></i>
+  </button>
+  <button style="width: 100%;">  
+    <i class="fas fa-table-cells fa-3x"></i>
+  </button>
+  <button style="width: 100%;">  
+    <i class="fas fa-stroopwafel  fa-3x"></i>
+  </button>
+  <button style="width: 100%;">
+    <i class="fas fa-wind fa-3x"></i>
+  </button>
+</div>
+<br>
+<br>
+<div class="bottom-center-align" >xp</div>
+
+<script src="../autoComplete.js/autoComplete.min.js"></script>
+	
+	<script type="importmap">
+	  {
+		"imports": {
+		  "spp": "./js/SPP.js"
+		}
+	  }
+	</script>
+    
+<script type="module">
+
+import * as SPP from 'spp';
+
+let activeUIManager = new SPP.UIManager();
+let stubLocalHTML = new SPP.UILayer(activeUIManager, true);
+let stubEscMenu = new SPP.UILayer(activeUIManager);
+
+activeUIManager.AddUI(stubLocalHTML);
+
+let activeConsole = new SPP.GameConsole(activeUIManager);
+		
+window.activeUIManager = activeUIManager;
+window.stubEscMenu = stubEscMenu;
+
+</script>
+	
+<script>
+	
+	function ToggleEscapeMenu() {
+		const elem = document.getElementById("escMenu");
+		if( elem.style.display == "none" ) {
+			elem.style.display = "block";
+            window.activeUIManager.AddUI(window.stubEscMenu);
+		}
+		else{
+			elem.style.display = "none";
+            window.activeUIManager.RemoveUI(window.stubEscMenu);
+		}
+	}
+	
+	function Resume() { 
+		ToggleEscapeMenu();
+	}
+	
+	function LoadMainMenuMap() {
+        console.log("LoadMainMenuMap");
+        window.InvokeNative("ConsoleCommand", "LoadMap MainMenu.map" );
+    }
+	
+	
+	// Execute a function when the user presses a key on the keyboard
+	document.onkeyup = function(evt) {
+		evt = evt || window.event;
+		var isEscape = false;
+		if ("key" in evt) {
+			isEscape = (evt.key === "Escape" || evt.key === "Esc");
+		} else {
+			isEscape = (evt.keyCode === 27);
+		}
+		
+		if(isEscape) {
+		   ToggleEscapeMenu();
+		}
+	};
+	
+	
+	
+	function ProcessJS(FuncName, ...Args) {	  
+		//console.log("ProcessJS: " + FuncName + " : " + Args.length);
+		// find object
+		var fn = window[FuncName];
+
+		// is object a function?
+		if (typeof fn === "function") 
+		{
+			fn.apply(null, Args);
+		}
+	}	
+		
+	window.InvokeNative = function(InFuncName, ...theArgs) {				
+		if(window.CallNativeWithJSON)
+		{
+			window.CallNativeWithJSON(JSON.stringify({ func: InFuncName, args: theArgs }));
+		}	
+		else
+		{
+			console.log("No Native Invoke: " + JSON.stringify({ func: InFuncName, args: theArgs }))
+		}
+	}
+	
+	if(window.RegisterJS)
+	{	
+		window.RegisterJS(ProcessJS);		
+	}
+		
+</script>
+</body>
+</html>

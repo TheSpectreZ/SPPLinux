@@ -1,0 +1,5 @@
+{
+    "player" : "VgEditorPlayer",
+    "environment" : "VgEditorEnvironment",
+    "map" : "scenes/collisionTest/collilsiontestmap.spj",
+}

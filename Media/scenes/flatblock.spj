@@ -1,0 +1,107 @@
+{
+    "empty": [],
+    "lights": [
+        {
+            "color": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "distance": 29.999982833862305,
+            "energy": 1000.0,
+            "name": "Light",
+            "transform": {
+                "location": [
+                    4.076,
+                    5.904,
+                    1.005
+                ],
+                "rotation": [
+                    47.5336,
+                    107.2208,
+                    -10.7437
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "type": "POINT"
+        }
+    ],
+    "materials": [
+        {
+            "name": "Material",
+            "parameters": {
+                "alpha": {
+                    "type": "constant",
+                    "value": "1.0"
+                },
+                "diffuse": {
+                    "type": "constant",
+                    "value": "0.800000011920929 0.800000011920929 0.800000011920929 1.0"
+                },
+                "metallic": {
+                    "type": "constant",
+                    "value": "0.0"
+                },
+                "normal": {
+                    "type": "constant",
+                    "value": "0.0 0.0 0.0"
+                },
+                "roughness": {
+                    "type": "constant",
+                    "value": "0.5"
+                },
+                "specular": {
+                    "type": "constant",
+                    "value": "0.5"
+                }
+            }
+        }
+    ],
+    "meshdata": [
+        {
+            "data": "AgAAAAAAAAAkAAAAAACAvwAAgD8AAIA/AAAAAAAAgD8AAAAAAABgPwAAAD8AAIA/AACAPwAAgL8AAAAAAACAPwAAAAAAACA/AACAPgAAgD8AAIA/AACAPwAAAAAAAIA/AAAAAAAAID8AAAA/AACAPwAAgD8AAIC/AAAAAAAAAAAAAIC/AAAgPwAAgD4AAIC/AACAvwAAgL8AAAAAAAAAAAAAgL8AAMA+AAAAAAAAgD8AAIC/AACAvwAAAAAAAAAAAACAvwAAwD4AAIA+AACAvwAAgD8AAIC/AACAvwAAAAAAAAAAAAAgPwAAgD8AAIC/AACAvwAAgD8AAIC/AAAAAAAAAAAAAMA+AABAPwAAgL8AAIC/AACAvwAAgL8AAAAAAAAAAAAAwD4AAIA/AACAPwAAgL8AAIA/AAAAAAAAgL8AAAAAAADAPgAAAD8AAIC/AACAvwAAgL8AAAAAAACAvwAAAAAAAAA+AACAPgAAgL8AAIC/AACAPwAAAAAAAIC/AAAAAAAAAD4AAAA/AACAPwAAgD8AAIA/AACAPwAAAAAAAAAAAAAgPwAAAD8AAIA/AACAvwAAgL8AAIA/AAAAAAAAAAAAAMA+AACAPgAAgD8AAIC/AACAPwAAgD8AAAAAAAAAAAAAwD4AAAA/AACAvwAAgD8AAIA/AAAAAAAAAAAAAIA/AAAgPwAAQD8AAIA/AACAvwAAgD8AAAAAAAAAAAAAgD8AAMA+AAAAPwAAgL8AAIC/AACAPwAAAAAAAAAAAACAPwAAwD4AAEA/AACAvwAAgD8AAIA/AAAAAAAAgD8AAAAAAABgPwAAAD8AAIC/AACAPwAAgL8AAAAAAACAPwAAAAAAAGA/AACAPgAAgD8AAIA/AACAvwAAAAAAAIA/AAAAAAAAID8AAIA+AACAPwAAgD8AAIC/AAAAAAAAAAAAAIC/AAAgPwAAgD4AAIC/AACAPwAAgL8AAAAAAAAAAAAAgL8AACA/AAAAAAAAgL8AAIC/AACAvwAAAAAAAAAAAACAvwAAwD4AAAAAAACAvwAAgD8AAIC/AACAvwAAAAAAAAAAAAAgPwAAgD8AAIC/AACAPwAAgD8AAIC/AAAAAAAAAAAAACA/AABAPwAAgL8AAIC/AACAPwAAgL8AAAAAAAAAAAAAwD4AAEA/AACAPwAAgL8AAIA/AAAAAAAAgL8AAAAAAADAPgAAAD8AAIA/AACAvwAAgL8AAAAAAACAvwAAAAAAAMA+AACAPgAAgL8AAIC/AACAvwAAAAAAAIC/AAAAAAAAAD4AAIA+AACAPwAAgD8AAIA/AACAPwAAAAAAAAAAAAAgPwAAAD8AAIA/AACAPwAAgL8AAIA/AAAAAAAAAAAAACA/AACAPgAAgD8AAIC/AACAvwAAgD8AAAAAAAAAAAAAwD4AAIA+AACAvwAAgD8AAIA/AAAAAAAAAAAAAIA/AAAgPwAAQD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAgD8AACA/AAAAPwAAgD8AAIC/AACAPwAAAAAAAAAAAACAPwAAwD4AAAA/",
+            "name": "Cube",
+            "uvinfo": [
+                "UVMap"
+            ]
+        }
+    ],
+    "meshes": [
+        {
+            "materials": [
+                "Material"
+            ],
+            "mesh": "Cube",
+            "name": "Cube",
+            "properties": {
+                "dont_export": false,
+                "enable_collisions": true,
+                "export_as_sdf": false,
+                "hidden_in_game": false
+            },
+            "transform": {
+                "location": [
+                    0.0,
+                    -1.0,
+                    0.0
+                ],
+                "rotation": [
+                    -0.0,
+                    0.0,
+                    -0.0
+                ],
+                "scale": [
+                    5.0,
+                    1.0,
+                    5.0
+                ]
+            }
+        }
+    ],
+    "sdfs": [],
+    "version": "3.1"
+}

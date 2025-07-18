@@ -1,0 +1,186 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    color: #EEE;
+    font: 15px Tahoma;
+}
+
+.Header {
+    background-color: #000000;
+    height: 5vh;
+    display: flex;
+}
+
+.Main {
+    height: 90vh;
+}
+
+.Footer {
+    background-color: #000000;
+    height: 5vh;
+    display: flex;
+}
+
+.Footer button {
+    border: none;
+    background-color: #000000;
+    color: white;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.Footer button:hover {
+    background-color: #414444;
+}
+
+.Footer button:active {
+    background-color: #322e2e;
+}
+
+.Footer-ContentBrowser {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 350px;
+    background-color: #355477;
+    z-index: 20;
+    border: #030303 5px solid;
+    border-bottom: none;
+    transition: transform 0.3s ease;
+}
+
+.Footer-ContentBrowser.show {
+    display: inline-block;
+    transform: translateY(-350px);
+}
+
+.dropdown {
+    position: relative;
+    font-size: 16px;
+}
+
+.dropdown button {
+    font-size: 14px;
+    margin: 6px;
+    padding: 6px;
+    border: none;
+    background-color: rgb(31, 30, 30);
+    color: white;
+    border-radius: 5px;
+}
+
+
+.dropdown:hover button {
+    background-color: #626161;
+}
+
+.dropdown-Content {
+    color: rgb(255, 255, 255);
+    background-color: #2c2b2b;
+
+    display: none;
+    position: absolute;
+    z-index: 1000;
+
+    border: #595757 1px solid;
+    border-radius: 5px;
+
+    width: 200px;
+}
+
+.dropdown:hover .dropdown-Content {
+    display: block;
+}
+
+.dropdown-Content a {
+    font-size: 14px;
+    display: block;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px;
+    margin: 5px;
+}
+
+.dropdown-Content a:hover {
+    background-color: #355477;
+}
+
+.dropdown-Content-Seperator {
+    border: 1px solid #c1b0b0;
+}
+
+.TabDiv {
+    display: flex;
+}
+
+#Tab_Toggles {
+    background-color: #2b2d2d;
+}
+
+.Tab-Title {
+    margin: 5px;
+    margin-bottom: 0px;
+    padding: 0.5em;
+    
+    display: inline-flex;
+    justify-content: center;
+    
+    width: 100px;
+    
+    background-color:#121313;
+    
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+
+    user-select: none;
+}
+
+.Tab-Title:hover {
+    background-color: #6a95ca;
+}
+
+.Tab-Content {
+    height: 95vh;
+    width: 100vw;
+    display: none;
+}
+
+
+.lm_splitter {
+    background-color: #030303;
+}
+
+.lm_splitter:hover {
+    background-color: #1e1f1f;
+}
+
+.lm_header {
+    background-color:  #000000;
+    display: flex;
+}
+
+.lm_header .lm_tab {
+    background-color: #414141;
+    border-top-right-radius: 2px;
+    font-size: 13px;
+}
+
+.lm_header .lm_tab .lm_active {
+    justify-items: center;
+    align-items: center;
+}
+
+.EditorHeader {
+    background-color: #161616;
+}

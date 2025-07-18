@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GameUI</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./../css/base.css" rel="stylesheet" type="text/css">
+        <style>
+            .PauseMenu {
+                position: absolute;
+                width: 20%;
+                top: 50%;
+                left: 50%;
+                align-items: center;
+                background-color: var(--outer-space);
+                border-radius: 12px;
+                border: 3px solid var(--pearl);
+                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+                transform: translate(-50%, -50%);
+            }
+        </style>
+    </head>
+    <body>        
+        <script type="module">       
+            import * as SPP from './../js/SPPMain.js';
+
+            class PauseMenuLayer extends SPP.BlockingUILayer
+            {
+                constructor(InManager)
+                {
+                    super(InManager);
+                    
+                    const ButtonInfo = [
+                        {
+                            label: "Back",
+                            func: () => PauseMenuLayer.prototype.Back()
+                        },
+                        {
+                            label: "Settings",
+                            func: () => PauseMenuLayer.prototype.Settings()
+                        },
+                        {
+                            label: "Main Menu",
+                            func: () => PauseMenuLayer.prototype.MainMenu()
+                        },
+                        {
+                            label: "Title Screen",
+                            func: () => PauseMenuLayer.prototype.TitleScreen()
+                        }
+                    ];
+
+                    this.buttons = [];
+
+                    this.htmlBlock = document.createElement("div");
+                    this.htmlBlock.classList = "column-container hidden PauseMenu";
+
+                    ButtonInfo.forEach(e => 
+                    {
+                        const div = document.createElement("div");
+                        div.classList = "container-item selectable fs1hem";
+                        div.innerHTML = e.label;
+                        div.onclick = (evt) => e.func();
+
+                        this.htmlBlock.append(div);
+                        this.buttons.push(div);
+                    });
+
+                    document.body.append(this.htmlBlock);
+                } 
+                
+                Show() 
+                {
+                    super.Show();
+                    this.htmlBlock.classList.remove("hidden");
+                }
+
+                Hide()
+                {
+                    super.Hide();
+                    this.htmlBlock.classList.add("hidden");
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////
+            
+            let activeUImanager = new SPP.UIManager();
+            
+            const pauseMenu = new PauseMenuLayer(activeUImanager);
+            
+            ////////////////////////////////////////////////////////////////
+
+            PauseMenuLayer.prototype.Back = function() 
+            {
+                pauseMenu.Hide();
+                window.InvokeNative("GameMenu", `PauseGame ${pauseMenu.Visible()}`);
+            }
+
+            PauseMenuLayer.prototype.Settings = function()
+            {
+                window.InvokeNative("MenuHandler", "NavigateToPage SettingsMenu");
+
+                if(window.CallNativeWithJSON == null)
+                    window.location.href = "./SettingsMenu.html";
+            }
+
+            PauseMenuLayer.prototype.MainMenu = function()
+            {
+                window.InvokeNative("GameMenu", "ExitGame");
+                window.InvokeNative("MenuHandler", "NavigateToPage MainMenu");
+
+                if(window.CallNativeWithJSON == null)
+                    window.location.href = "./../MainMenu.html";
+            }
+
+            PauseMenuLayer.prototype.TitleScreen = function()
+            {
+                window.InvokeNative("MenuHandler", "QuitGame");
+
+                if(window.CallNativeWithJSON == null)
+                    window.location.href = "./../MainMenu.html";
+            }
+
+            ////////////////////////////////////////////////////////////////
+
+            document.addEventListener("keyup", (event) => 
+            {
+                if(event.keyCode == 27)   // Escape Key
+                {
+                    pauseMenu.Toggle();
+                    window.InvokeNative("GameMenu", `PauseGame ${pauseMenu.Visible()}`);
+                }
+            });
+
+        </script>
+    </body>
+</html>

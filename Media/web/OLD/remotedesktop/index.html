@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  
+	<link rel="stylesheet" href="darktheme.css">
+	
+  <style>
+  
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+  background-image: linear-gradient(to bottom, #000004 , #232323 30px , #171717);
+
+}
+
+.hiddenOnTop {
+  display: none;
+  height: 100%;
+  width: 100%;
+  z-index: 9;
+  position: fixed;
+  background-color: rgba(0,0,0,1);
+   padding: 0px 20px 0 20px;
+}
+
+#mainArea {
+  
+  flex-flow: column;
+   display: flex;
+  height: 100%;
+  width: 100%;
+   padding: 0px 20px 0 20px;
+}
+
+#initialArea {
+
+flex-flow: column;
+   display: flex;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
+  #activeCorner {
+    padding: 5px;
+}
+
+.childListAndArea {
+	position: relative;
+	border: 2px solid #000;
+    padding: 5px;
+	flex: 1;
+	background-color: #111111;
+}
+
+.initialChoice {
+  border: 2px solid #000;
+    padding: 5px;
+	background-color: white;
+	mix-blend-mode: screen;
+    color: black;
+    font-size: 30px;
+	
+}
+
+#bottomStatus {
+	flex: 0 1 50px;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #888;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+.dropbtn {
+  background-color: #1b1b1b;
+  color: white;
+  padding: 4px;
+ 
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+   font-size: 12px;
+}
+
+.dropdown-content {
+  display: none;
+  }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #1b1b1b;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  color: white;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 4px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #000;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #000;}
+
+a { color:white; text-decoration: none; }
+a:hover { color:white; }
+.nav a { color:white; }
+
+#menuArea {
+	display: inline-block;
+}
+
+#isLan {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+  }
+
+.ListAndStatusArea {
+	flex: 1 1 auto;
+	display: flex;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+p
+{
+    line-height: 1;
+	margin: 0;
+	padding: 4px;	
+}
+  </style>
+    <meta charset="utf-8">
+    <title>SPP Remote Desktop</title>
+	 <link href="../fontawesome/css/fontawesome.css" rel="stylesheet">
+  <link href="../fontawesome/css/brands.css" rel="stylesheet">
+  <link href="../fontawesome/css/solid.css" rel="stylesheet">
+  </head>
+  <body>
+  
+	  <div id="initialArea">  
+	  
+	  <div id="isLan"> 
+		Local Network Only <input type="checkbox" id="CB_Lan" checked>
+	  </div>
+			 <a href="javascript:IsHost();">
+		<div class="initialChoice" >
+		  Host Connection
+		</div>
+		</a>
+		
+		<a href="javascript:IsClient();">
+		<div class="initialChoice" >
+		Connect to Host
+		</div>
+		</a>
+		</div>
+	  
+  
+	 <div id="configArea" class="hiddenOnTop">  
+		 <form action="" class="form-container">
+			<h1>Configuration</h1>
+
+			<label for="stunaddr"><b>STUN Address</b></label>
+			<input type="text" placeholder="" name="stunaddr" required><br>
+
+			<label for="cordaddr"><b>Coordinator Address</b></label>
+			<input type="text" placeholder="" name="cordaddr" required><br>
+			
+			<label for="cordpwd"><b>Coordinator Password</b></label>
+			<input type="password" placeholder="" name="cordpwd" required><br>
+			
+			<button type="submit" class="btn" onclick="javascript:CloseConfig(true)">Accept</button>
+			<button type="button" class="btn cancel" onclick="javascript:CloseConfig(false)">Cancel</button>
+		  </form>  
+	</div>
+  
+  <div id="mainArea" style="display: none;">
+		
+		 <div id="menuArea">
+		
+		<i class="fa-solid fa-arrow-left"></i>
+		
+		<div class="dropdown">
+		  <button class="dropbtn">File</button>
+		  <div class="dropdown-content">
+		    <a href="javascript:OpenConfig();">Configuration</a>
+			<a href="javascript:ButtonClick('Exit');">Exit</a>			
+		  </div>		  
+		</div>
+		
+		<div class="dropdown">
+		  <button class="dropbtn">Help</button>
+		  <div class="dropdown-content">
+			<a href="javascript:ButtonClick('GIT');">GIT Repository</a>
+			<a href="javascript:ButtonClick('About');">About</a>
+		  </div>
+		</div>
+		
+		</div>
+		
+		  
+		<div id="serverBrowser" class="ListAndStatusArea" style="display: none;" > 
+		    <div style="flex: 0; "> <h2>Select server: </h2> </div> 
+
+			<div id="serverList" class="childListAndArea" style="overflow-y: scroll;">
+		
+			<!--
+			<a href="#">
+			<div id="currentDesktop"  >
+			 <i class="fa-solid fa-desktop" style="color:green"></i> Dave's Desktop
+			</div>
+			</a>
+			 -->
+			</div>					
+		</div>
+		
+		<div id="serverStatus" class="ListAndStatusArea" style="display: none;" > 
+			<h2>Server Status:</h2>
+			<div class="childListAndArea">
+			<div id="activeCorner"><i class="fa-solid fa-power-off" style="color:red" id="clientConnected"></i> <div id="serverText" style="display: inline-block;">NO CLIENT</div></div>	
+			</div>					
+		</div>		
+		
+		<div id="connectionInfo" class="ListAndStatusArea" style="display: none; background-color: black;  z-index: 1;" > 
+		    <div style="flex: 0; "> <h2>Connection: </h2> </div> 
+
+			<div class="childListAndArea" style="overflow-y: scroll;">
+			<p>Status: <span id="ConnectionStatus">Pending...</span></p>
+			<p><span id="ConnectionType">Host: </span><span id="ConnectionName">UNKNOWN</span</p>
+			<p>Outgoing Bandwidth: <span id="BandwidthOut">0 kb/s</span></p>
+			<p>Incoming Bandwidth: <span id="BandwidthIn">0 kb/s</span></p>
+			
+			<p>Latency Options: <select name="cars" id="cars">
+				<option value="volvo">Favor Speed</option>
+				<option value="saab">Split Favor</option>
+				<option value="opel">Favor Quality</option>
+			  </select>
+			</p>
+			<button onclick="javascript:Disconnect();">Disconnect</button>
+			</div>					
+		</div>
+		
+		<div  id="bottomStatus">
+			<div class="flex-container">
+				<div id="activeCorner"><i class="fa-solid fa-power-off" style="color:red" id="StunSignal"></i> STUN</div>								
+				<div id="activeCorner"><i class="fa-solid fa-power-off" style="color:red" id="CoordSignal"></i> Coordinator</div>			
+			</div>  		
+		</div>
+		
+	</div>
+	
+	<script type="module">
+	
+	import { createStateMachine } from './simpleStateMachine.js';
+		
+	const machine = createStateMachine({
+	  initialState: 'connectionType',
+	  states: 
+	  {
+		connectionType : {
+				actions: {
+				  onEnter(PrevState) {
+					console.log('connectionType: onEnter')
+					
+					var x = document.getElementById("initialArea");
+					x.style.display = null;
+				  },
+				  onExit(NextState) {
+					console.log('connectionType: onExit')
+					
+					var x = document.getElementById("initialArea");
+					x.style.display = "none";
+				  },
+				}
+			},
+		hostConnection : {
+				actions: {
+				  onEnter(PrevState) {
+					console.log('hostConnection: onEnter')
+					
+					var mainArea = document.getElementById("mainArea");
+					mainArea.style.display = null;
+					
+					var subArea = document.getElementById("serverStatus");
+					subArea.style.display = null;
+					
+					
+					var IsLanSet = document.getElementById("CB_Lan").checked ? 1 : 0
+					 
+					if(window.CallNativeWithJSON)
+					{
+						window.CallNativeWithJSON(JSON.stringify({ func: "StartupHost", args: [ IsLanSet ] }));
+					}
+				  },
+				  onExit(NextState) {
+					console.log('hostConnection: onExit')
+					
+					var mainArea = document.getElementById("mainArea");
+					mainArea.style.display = "none";
+					
+					var subArea = document.getElementById("serverStatus");
+					subArea.style.display = "none";
+				  },
+				}
+			},
+		clientConnection : {
+				actions: {
+				  onEnter(PrevState) {
+					console.log('clientConnection: onEnter')
+					
+					var mainArea = document.getElementById("mainArea");
+					mainArea.style.display = null;
+					
+					var subArea = document.getElementById("serverBrowser");
+					subArea.style.display = null;
+					
+					
+					var IsLanSet = document.getElementById("CB_Lan").checked ? 1 : 0
+					
+					if(window.CallNativeWithJSON)
+					{
+						window.CallNativeWithJSON(JSON.stringify({ func: "StartupClient", args: [ IsLanSet ] }));
+					}	
+				  },
+				  onExit(NextState) {
+					console.log('clientConnection: onExit')
+					
+					var mainArea = document.getElementById("mainArea");
+					mainArea.style.display = "none";
+					
+					var subArea = document.getElementById("serverBrowser");
+					subArea.style.display = "none";
+				  },
+				}
+			},
+		activeConnection : {
+				actions: {
+				  onEnter(PrevState) {
+					console.log('activeConnection: onEnter')
+					
+					var mainArea = document.getElementById("mainArea");
+					mainArea.style.display = null;
+					
+					var subArea = document.getElementById("connectionInfo");
+					subArea.style.display = null;
+				  },
+				  onExit(NextState) {
+					console.log('activeConnection: onExit')
+					
+					var mainArea = document.getElementById("mainArea");
+					mainArea.style.display = "none";
+					
+					var subArea = document.getElementById("connectionInfo");
+					subArea.style.display = "none";
+				  },
+				}
+			}
+		}
+	  });
+
+	var coreState = "";
+
+	window.IsHost = function()
+	{
+		machine.transitionState("hostConnection");
+		coreState = "hostConnection";
+	}
+	
+	window.IsClient = function()
+	{
+		machine.transitionState("clientConnection");
+		coreState = "clientConnection";
+	}
+	
+	var bLastConnection = false;
+	
+	function IsConnected(bIsConnected)
+	{
+		if(bLastConnection != bIsConnected)
+		{
+			if(bIsConnected)
+				machine.transitionState("activeConnection");
+			else
+				machine.transitionState(coreState);
+			bLastConnection = bIsConnected;
+		}
+	}
+	
+	function OpenConfig()
+	{
+		var x = document.getElementById("configArea");
+		x.style.display = "block";
+	}
+	
+	
+	function CloseConfig(bWasAccept)
+	{
+		var x = document.getElementById("configArea");
+		x.style.display = "none";
+	}
+	
+	
+	function ButtonClick(InName)
+	{
+		console.log("ButtonClick" + InName);
+		
+		if(window.CallNativeWithJSON)
+		{
+			window.CallNativeWithJSON(JSON.stringify({ func: "ButtonClick", args: [ InName ] }));
+		}		
+	}
+	
+	
+	window.ClickHost = function(InGUID)
+	{
+		console.log("ClickHost: " + InGUID);
+		if(window.CallNativeWithJSON)
+		{
+			window.CallNativeWithJSON(JSON.stringify({ func: "JoinHost", args: [ InGUID ] }));
+		}
+	}
+	
+	// First, checks if it isn't implemented yet.
+	if (!String.prototype.format) {
+	  String.prototype.format = function() {
+		var args = arguments;
+		return this.replace(/{(\d+)}/g, function(match, number) { 
+		  return typeof args[number] != 'undefined'
+			? args[number]
+			: match
+		  ;
+		});
+	  };
+	}
+
+	function AddHost(InGUID, InName)
+	{
+		console.log("AddHost: " + InName);
+		
+		let htmlText = `<a href="javascript:ClickHost('{0}');" id="HOST_{0}">
+		<i class="fa-solid fa-desktop" style="color:green"></i> {1}
+		</a>`;
+		
+		let formattedText = htmlText.format( InGUID, InName);
+		document.getElementById("serverList").innerHTML += formattedText;
+	}
+	
+	function RemoveHost(InGUID)
+	{
+		var el = document.getElementById('GUID_' +InGUID );
+		el.remove();         
+	}
+	
+	function UpdateSTUN(InActive)
+	{
+		document.getElementById("StunSignal").style.color = InActive ? "green" : "red";	
+	}
+	
+	function UpdateCoord(InActive)
+	{
+		document.getElementById("CoordSignal").style.color = InActive ? "green" : "red";	
+	}
+
+	function UpdateConnectionStatus(InActive)
+	{
+		IsConnected( InActive > 0 );
+		
+		if(InActive == 1)
+		document.getElementById("ConnectionStatus").innerHTML = "Pending...";
+		if(InActive == 2)
+		document.getElementById("ConnectionStatus").innerHTML = "Connected";
+	}
+		
+	function UpdateConnectionStats(InName, InKBsIn, InKBsOut)
+	{
+		document.getElementById("ConnectionName").innerHTML = InName;
+		document.getElementById("BandwidthOut").innerHTML = InKBsOut.toString();
+		document.getElementById("BandwidthIn").innerHTML = InKBsIn.toString();
+	}
+	
+	window.Disconnect = function()
+	{
+		if(window.CallNativeWithJSON)
+		{
+			window.CallNativeWithJSON(JSON.stringify({ func: "Disconnect" }));
+		}	
+	}
+		
+	if(window.RegisterJSFunction)
+	{	
+		window.RegisterJSFunction("UpdateSTUN", UpdateSTUN);
+		window.RegisterJSFunction("UpdateCoord", UpdateCoord);
+		window.RegisterJSFunction("AddHost", AddHost);
+		window.RegisterJSFunction("RemoveHost", RemoveHost);
+		window.RegisterJSFunction("UpdateConnectionStatus", UpdateConnectionStatus);
+		window.RegisterJSFunction("UpdateConnectionStats", UpdateConnectionStats);
+	}
+	//IsConnected();
+	</script>
+	
+  </body>
+</html>

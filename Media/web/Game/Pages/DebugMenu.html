@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DebugMenu</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./../css/base.css" rel="stylesheet" type="text/css">
+        <style>
+
+            body 
+            {
+                background-color: rgba(54, 54, 54, 0.919);
+            }
+
+           .DebugMenu 
+           {
+                font-family: Arial;   
+                position: absolute;
+                top: 10%;
+                left: 60px;
+                width: 20%;
+                max-height: 70%;
+                border-radius: 2px;
+                justify-items: center;
+                scrollbar-gutter: initial;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
+            .DebugMenu::-webkit-scrollbar
+            {
+                display: none;
+            }
+
+            .DebugMenuItem
+            {
+                border: 2px rgb(157, 159, 158) solid;
+                box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.201);  
+                text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.704);  
+                padding: 10px;    
+                margin-bottom: 10px;
+                font-size: 1.5em;
+                height: 35px;
+                color: white;
+                display: flex;
+                align-items: center;
+            }
+            .DebugMenuItem:hover
+            {
+                color: var(--SPPGold);
+            }
+            .DebugMenuItem:nth-child(odd)
+            {
+                background-color: rgba(54, 54, 54, 0.97);
+            }
+            .DebugMenuItem:nth-child(even)
+            {
+                background-color: rgba(44, 44, 45, 0.97);
+            }
+
+            .DebugContent 
+            {
+                font-family: Arial;   
+                position: absolute;
+                justify-items: center;
+                scrollbar-gutter: initial;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                position: absolute;
+                top: 10%;
+                right: 5%;
+                width: 20%;
+                max-height: 70%;
+            }
+            .DebugContent::-webkit-scrollbar
+            {
+                display: none;
+            }
+            .DebugContent.hidden
+            {
+                display: none;
+            }
+
+            .DebugDialog
+            {
+                font-family: Arial;
+                position: absolute;
+                top: 10%;
+                left: 30%;
+                width: 40%;
+                max-height: 70%;
+                scrollbar-gutter: initial;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                display: block;
+                background-color: rgba(30, 30, 30, 0.758);
+                border-radius: 5px;
+                border: 2px #dbae73e1 solid;
+            }
+            .DebugDialog::-webkit-scrollbar
+            {
+                display: none;
+            }
+            .DebugDialog.hidden
+            {
+                display: none;
+            }
+
+            .ItemTitle
+            {
+                color: rgb(34, 208, 224);
+                text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.533);
+                display: flex;
+                justify-content: center;
+            }
+
+            .ItemText
+            {
+                text-shadow: 4px 4px 4px rgb(0, 0, 0, 0.533);
+                margin: 5px 0;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .ItemButton
+            {
+                display: flex;
+                justify-content: center;
+                justify-self: center;
+
+                color: rgb(17, 17, 17);
+                padding: 10px;
+                margin: 5px 0;
+                background-color:rgb(255, 255, 255);
+                border-radius: 5px;
+                box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.533);
+            }
+            .ItemButton:hover
+            {
+                background-color: rgba(250, 235, 215, 0.807);
+            }
+            .ItemButton:active 
+            {
+                opacity: 0.8;
+                transform: scale(0.99);
+            }
+
+            .DebugContentItem
+            {
+                border: 2px rgb(157, 159, 158) solid;
+                box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.201);  
+                text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.704);  
+                padding: 10px;    
+                margin-bottom: 10px;
+                font-size: 1.5em;
+                height: 35px;
+                color: white;
+                display: flex;
+                align-items: center;
+            }
+            .DebugContentItem:hover
+            {
+                color: var(--SPPGold);
+        
+            }
+            .DebugContentItem:nth-child(odd)
+            {
+                background-color: rgba(54, 54, 54, 0.97);
+            }
+            .DebugContentItem:nth-child(even)
+            {
+                background-color: rgba(44, 44, 45, 0.97);
+            }
+
+            .DebugDialogItem
+            {
+                color: white;
+                padding: 15px;
+                border-bottom: 0px;
+            }
+        </style>
+    </head>
+    <body>        
+        <script type="module">       
+            import * as SPP from './../js/SPPMain.js';
+
+            class DebugMenuLayer extends SPP.ToggleableUILayer
+            {
+                constructor(InManager)
+                {
+                    super(InManager);
+
+                    this.buttons = [];
+
+                    this.htmlBlock = document.createElement("div");
+                    this.htmlBlock.classList = "column-container hidden DebugMenu";
+
+                    document.body.append(this.htmlBlock);
+                }
+
+                AddButton(btn)
+                {
+                    const div = document.createElement("div");
+                    div.classList = "DebugMenuItem";
+                    div.innerHTML = btn.label;
+                    div.onclick = (evt) => btn.func();
+
+                    this.htmlBlock.append(div);
+                    this.buttons.push(div);
+                }
+
+                Show()
+                {
+                    super.Show();
+                    this.htmlBlock.classList.remove("hidden");
+                }
+
+                Hide()
+                {
+                    super.Hide();
+                    this.htmlBlock.classList.add("hidden");
+                }
+
+                OnActivate()
+                {
+                    this.buttons.forEach(btn => {
+                        btn.classList.add("selectable");
+                    });
+
+                    this.htmlBlock.classList.remove("disabled-ui")
+                }
+
+                OnDeactivate()
+                {
+                    this.buttons.forEach(btn => {
+                        btn.classList.remove("selectable");
+                    });
+
+                    this.htmlBlock.classList.add("disabled-ui");
+                }
+            }
+            
+            class DebugContentLayer extends SPP.ToggleableUILayer
+            {
+                constructor(InManager)
+                {
+                    super(InManager)
+                    
+                    this.htmlBlock = document.createElement("div");
+                    document.body.append(this.htmlBlock);
+                    
+                    this.contentBlock = document.createElement("div");
+                    this.contentBlock.classList = "column-container DebugContent hidden";
+                    this.htmlBlock.append(this.contentBlock);
+
+                    this.dialogBlock = document.createElement("div");
+                    this.dialogBlock.classList = "DebugDialog hidden";
+                    this.htmlBlock.append(this.dialogBlock);
+
+                    this.bDialogVisible = false;
+                    this.bContentVisible = false;
+                } 
+
+                ShowDialog()
+                {
+                    this.dialogBlock.classList.remove("hidden");
+                    this.bDialogVisible = true;
+                }
+                HideDialog()
+                {
+                    this.dialogBlock.classList.add("hidden");
+                    this.bDialogVisible = false;
+                }
+                ToggleDialog()
+                {
+                    if(this.bDialogVisible)
+                        HideDialog()
+                    else
+                        ShowDialog()
+                }
+
+                ShowContent()
+                {
+                    this.contentBlock.classList.remove("hidden");
+                    this.bContentVisible = true;
+                }
+                HideContent()
+                {
+                    this.contentBlock.classList.add("hidden");
+                    this.bContentVisible = false;
+                }
+                ToggleContent()
+                {
+                    if(this.bContentVisible)
+                        HideDialog()
+                    else
+                        ShowDialog()
+                }
+
+                AddContentItem()
+                {
+                    const div = document.createElement("div");
+                    div.classList = "DebugContentItem";
+
+                    this.contentBlock.append(div);
+                    return div;
+                }
+
+                Clear()
+                {
+                    this.contentBlock.innerHTML = "";
+                    this.dialogBlock.innerHTML = "";
+                }
+
+                AddDialogItem()
+                {
+                    const div = document.createElement("div");
+                    div.classList = "DebugDialogItem";
+
+                    this.dialogBlock.append(div);
+                    return div;
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////
+
+            DebugMenuLayer.prototype.MapList = function() 
+            {
+                debugContent.HideDialog();
+
+                window.InvokeNative("DebugMenu", "RequestMapList PopulateMapList");
+
+                if(window.CallNativeWithJSON == null)
+                    PopulateMapList(JSON.stringify(MapJson));
+            }
+
+            DebugMenuLayer.prototype.ServerList = function() 
+            {
+                debugContent.HideDialog();
+                
+                window.InvokeNative("DebugMenu", "RequestServerList PopulateServerList");
+
+                if(window.CallNativeWithJSON == null)
+                    PopulateServerList(JSON.stringify(ServerJson));
+            }
+
+            DebugMenuLayer.prototype.PlayerList = function()
+            {
+                debugContent.HideDialog();
+                
+                window.InvokeNative("DebugMenu", "RequestPlayerList PopulatePlayerList");
+
+                if(window.CallNativeWithJSON == null)
+                    PopulatePlayerList(JSON.stringify(PlayerJson));
+            }
+
+            ////////////////////////////////////////////////////////////////
+            
+            let activeUImanager = new SPP.UIManager();
+
+            const background = new SPP.BackgroundLayer(activeUImanager);
+            
+            {
+                const div = background.SetBackgroundImage("./../img/background.jpg");
+                div.style.mixBlendMode = "multiply";
+            }
+
+            background.SetLogoImage("./../img/logo.png");
+            background.Show();
+
+            const debugMenu = new DebugMenuLayer(activeUImanager);
+            debugMenu.Show();
+
+            const debugContent = new DebugContentLayer(activeUImanager);
+            debugContent.Show();
+            
+            const footer = new SPP.FooterLayer(activeUImanager);
+            footer.Show();
+            
+            {
+                const backBtn = footer.AddButton("Back", () => { window.history.back(); });
+                backBtn.style.fontSize = "0.8em";
+            }
+
+            ////////////////////////////////////////////////////////////////
+
+            function PopulateMenu(IsNetworkConnected)
+            {   
+                IsNetworkConnected = Boolean(IsNetworkConnected);
+
+                const ButtonInfo = [
+                    {
+                        label: "Maps",
+                        enable: true,
+                        func: () => DebugMenuLayer.prototype.MapList()
+                    },
+                    {
+                        label: "Servers",
+                        enable: IsNetworkConnected,
+                        func: () => DebugMenuLayer.prototype.ServerList()
+                    },
+                    {
+                        label: "Players",
+                        enable: IsNetworkConnected,
+                        func: () => DebugMenuLayer.prototype.PlayerList()
+                    },
+                ];
+
+                ButtonInfo.forEach(e =>
+                    {
+                        if(e.enable)
+                        {
+                            debugMenu.AddButton(e);
+                        }
+                    });
+
+                    DebugMenuLayer.prototype.MapList()
+            }
+
+            window["PopulateMenu"] = PopulateMenu;
+
+            function PopulateServerList(InJsonString)
+            {
+                debugContent.Clear();
+
+                const Json = JSON.parse(InJsonString);
+                Json.ServerList.forEach( function(element, index) 
+                {    
+                    const div = debugContent.AddContentItem();
+                    div.onclick = (e) => { ServerDialog(element); }
+                    
+                    const name = document.createElement("div");
+                    name.classList = "ItemText";
+                    name.innerHTML = `${element.name}`;
+                    div.append(name);
+                });
+
+                debugContent.ShowContent();
+            }
+            window["PopulateServerList"] = PopulateServerList;
+
+            function ServerDialog(serverEle)
+            {
+                debugContent.dialogBlock.innerHTML = "";
+
+                {
+                    const Item = debugContent.AddDialogItem();
+                
+                    const title = document.createElement("div");
+                    title.classList = "ItemTitle fs2em";
+                    title.innerHTML = `${serverEle.name}`;
+                    title.style.marginBottom = "0.9em";
+
+                    Item.append(title);
+                
+                    const type = document.createElement("div");
+                    type.classList = "ItemText fs1hem"
+                    type.innerHTML = `${serverEle.mapAsset}`;
+                    type.style.marginBottom = "1em";
+                    
+                    Item.append(type);
+                    
+                    const map = document.createElement("div");
+                    map.classList = "ItemText fs1hem";
+                    map.innerHTML = `${serverEle.numTeam1} &nbsp - &nbsp ${serverEle.numTeam2}`;
+                    map.style.marginBottom = "1em";
+                    
+                    Item.append(map);
+
+                    const Btn = document.createElement("div");
+                    Btn.classList = "ItemButton fs1hem";
+                    Btn.innerHTML = "Launch";
+                    Btn.style.width = "20%";
+
+                    Btn.onclick = (e) => 
+                    {
+                        window.InvokeNative("DebugMenu", `JoinGameServer ${mapEle.addr}`);
+                    }
+
+                    Item.append(Btn);
+                }
+
+                debugContent.ShowDialog();
+            }
+
+            function PopulatePlayerList(InJsonString)
+            { 
+                debugContent.Clear();
+
+                const Json = JSON.parse(InJsonString);
+                Json.PlayerList.forEach((element, index) => {
+                    
+                    const div = debugContent.AddContentItem();
+                    div.onclick = (e) => { PlayerDialog(element); }
+
+                    const name = document.createElement("div");
+                    name.classList = "ItemText"
+                    name.innerHTML = `${element.name}`;
+                    
+                    div.append(name);
+                });
+
+                debugContent.ShowContent();
+            }
+            window["PopulatePlayerList"] = PopulatePlayerList;
+
+            function PlayerDialog(playerEle)
+            {
+                debugContent.dialogBlock.innerHTML = "";
+
+                {
+                    const Item = debugContent.AddDialogItem();
+                
+                    const title = document.createElement("div");
+                    title.classList = "ItemTitle fs2em";
+                    title.innerHTML = `${playerEle.name}`;
+                    title.style.marginBottom = "0.9em";
+
+                    Item.append(title);
+                
+                    //const level = document.createElement("div");
+                    //level.classList = "ItemText fs1hem"
+                    //level.innerHTML = `Level`// ${playerEle.stats.level}`;
+                    //level.style.marginBottom = "1em";
+                    
+                    //Item.append(level);
+                    
+                    //const xp = document.createElement("div");
+                    //xp.classList = "ItemText fs1hem"
+                    //xp.innerHTML = `Xp`; // ${playerEle.stats.xp} Xp`;
+                    //xp.style.marginBottom = "1em";
+                    
+                    //Item.append(xp);
+                }
+
+                debugContent.ShowDialog();
+            }
+
+            function PopulateMapList(InJsonString)
+            {
+                debugContent.Clear();
+                
+                const Json = JSON.parse(InJsonString);
+                Json.MapList.forEach(function(element, index)
+                {
+                    const div = debugContent.AddContentItem();
+                    div.onclick = (e) => { MapDialog(element); }
+                    
+                    const mapName = document.createElement("div");
+                    mapName.classList = "ItemText";
+                    mapName.innerHTML = ` ${element.name}`;
+
+                    div.append(mapName);
+                });
+                
+                debugContent.ShowContent();
+            }
+            window["PopulateMapList"] = PopulateMapList;
+
+            function MapDialog(mapEle)
+            {
+                debugContent.dialogBlock.innerHTML = "";
+                 
+                {
+                    const Item = debugContent.AddDialogItem();
+                    
+                    const title = document.createElement("div");
+                    title.classList = "ItemTitle fs2em";
+                    title.innerHTML = `Launch Game Map`;
+                    title.style.marginBottom = "0.9em";
+
+                    Item.append(title);
+                    
+                    const name = document.createElement("div");
+                    name.classList = "ItemText fs2em";
+                    name.innerHTML = `${mapEle.name}`;
+                    name.style.marginBottom = "1em";
+                    
+                    Item.append(name);
+
+                    const Btn = document.createElement("div");
+                    Btn.classList = "ItemButton fs1hem";
+                    Btn.innerHTML = "Launch";
+                    Btn.style.width = "20%";
+
+                    Btn.onclick = (e) => 
+                    {
+                        window.InvokeNative("DebugMenu", `LaunchGameMap ${mapEle.path}`);
+                    }   
+
+                    Item.append(Btn);
+                }
+               
+                debugContent.ShowDialog();
+            }
+
+            ////////////////////////////////////////////////////////////////
+            
+            document.addEventListener('DOMContentLoaded', ev => 
+            {
+               window.InvokeNative("DebugMenu", "RequestDebugMenu PopulateMenu"); 
+
+               if(window.CallNativeWithJSON == null)
+                    PopulateMenu(true);
+            });
+            
+            ////////////////////////////////////////////////////////////////
+
+            const ServerJson = {
+                ServerList: [
+                    {
+                        name: "Westeros",
+                        mapAsset: "Icebox",
+                        numTeam1: 3,
+                        numTeam2: 2
+                    },
+                    {
+                        name: "Hogwarts",
+                        mapAsset: "Haven",
+                        numTeam1: 3,
+                        numTeam2: 2
+                    }
+                ]
+            };
+            
+            const PlayerJson = {
+                PlayerList: [
+                    {
+                        name: "Frodo",
+                    },
+                    {
+                        name: "Bilbo",
+                    }
+                ]
+            };
+
+            const MapJson = {
+                MapList: [
+                    {
+                        name: "Haven",
+                        path: "Map/haven"
+                    },
+                    {
+                        name: "Icebox",
+                        path: "Map/icebox"
+                    },
+                    {
+                        name: "Breeze",
+                        path: "Map/breeze"
+                    },
+                    {
+                        name: "Lotus",
+                        path: "Map/lotus"
+                    }
+                ]
+            }
+
+        </script>
+    </body>
+</html>

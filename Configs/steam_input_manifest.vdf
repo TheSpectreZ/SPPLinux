@@ -1,0 +1,78 @@
+"In Game Actions"
+{
+    "actions"
+    {
+        "GameControls"
+        {
+            "title"              "#Set_GameControls"
+            "StickPadGyro"
+            {
+                "Move"
+                {
+                    "title"      "#Action_Move"
+                    "input_mode" "joystick_move"
+                }
+                "Camera"
+                {
+                    "title"      "#Action_Camera"
+                    "input_mode" "joystick_move"
+                }
+            }
+            "Button"
+            {
+                "Attack"                "#Action_Attack"
+                "Block"                 "#Action_Block"
+                "Modify_Ability_0"      "#Action_Jump"
+                "Modify_Ability_1"      "#Action_Interact"
+                "Dodge"                 "#Action_Dodge"
+                "ChangeAbility"         "#Action_ChangeAbility"
+                "Map"                   "#Action_Map"
+                "Menu"                  "#Action_Menu"
+            }
+        }
+        "MenuControls"
+        {
+            "title"              "#Set_MenuControls"
+            "Button"
+            {
+                "MenuUp"         "#Menu_Up"
+                "MenuDown"       "#Menu_Down"
+                "MenuLeft"       "#Menu_Left"
+                "MenuRight"      "#Menu_Right"
+                "Affirm"         "#Menu_Affirm"
+                "Cancel"         "#Menu_Cancel"
+                "Other"          "#Menu_Other"
+                "ScrollUp"       "#Menu_ScrollUp"
+                "ScrollDown"     "#Menu_ScrollDown"
+                "DismissMenu"    "#Menu_DismissMenu"
+            }
+        }
+    }
+    "localization"
+    {
+        "english"
+        {
+            "Set_GameControls"      "Game Controls"
+            "Set_MenuControls"      "Menu Controls"
+            "Action_Move"           "Move"
+            "Action_Camera"         "Camera"
+            "Action_Attack"         "Attack"
+            "Action_Block"          "Block"
+            "Action_Jump"           "Jump"
+            "Action_Interact"       "Interact"
+            "Action_Dodge"          "Dodge"
+            "Action_ChangeAbility"  "ChangeAbility"
+            "Action_Map"            "Map"
+            "Action_Menu"           "Menu"  
+            "Menu_Down"             "Down"
+            "Menu_Left"             "Left"
+            "Menu_Right"            "Right"
+            "Menu_Affirm"           "Affirm"
+            "Menu_Cancel"           "Cancel"
+            "Menu_Other"            "Other"
+            "Menu_ScrollUp"         "Scroll Up"
+            "Menu_ScrollDown"       "Scroll Down"
+            "Menu_DismissMenu"      "Dismiss Menu"
+        }
+    }
+}

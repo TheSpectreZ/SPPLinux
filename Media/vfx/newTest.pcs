@@ -1,0 +1,509 @@
+{
+	"editorJson" : "{\"last_node_id\":12,\"last_link_id\":10,\"nodes\":[{\"id\":1,\"type\":\"ParticleSystem\",\"pos\":[698,360],\"size\":{\"0\":210,\"1\":82},\"flags\":{},\"order\":8,\"mode\":0,\"inputs\":[{\"name\":\"Emitter1\",\"type\":\"emitter\",\"link\":1}],\"properties\":{\"layerCount\":1}},{\"id\":4,\"type\":\"PS/PhysicsBehavior\",\"pos\":[100,294],\"size\":{\"0\":211.60000610351562,\"1\":166},\"flags\":{},\"order\":0,\"mode\":0,\"inputs\":[{\"name\":\"Gravity\",\"type\":\"vec3\",\"link\":null},{\"name\":\"LinearForce\",\"type\":\"vec3\",\"link\":null},{\"name\":\"PointAttractForce\",\"type\":\"float\",\"link\":null},{\"name\":\"PointRepelForce\",\"type\":\"float\",\"link\":null},{\"name\":\"CurlForce\",\"type\":\"CurlForce\",\"link\":null},{\"name\":\"WindForce\",\"type\":\"WindForce\",\"link\":null},{\"name\":\"VortexForce\",\"type\":\"VortexForce\",\"link\":null},{\"name\":\"Drag\",\"type\":\"float\",\"link\":null}],\"outputs\":[{\"name\":\"Value\",\"type\":\"PhysicsModule\",\"links\":[3],\"slot_index\":0}],\"properties\":{}},{\"id\":6,\"type\":\"PS/EmissionBehavior\",\"pos\":[87,536],\"size\":{\"0\":194.8000030517578,\"1\":66},\"flags\":{},\"order\":6,\"mode\":0,\"inputs\":[{\"name\":\"ParticleLife\",\"type\":\"float,FloatRange\",\"link\":7},{\"name\":\"EmissionRate\",\"type\":\"float\",\"link\":9},{\"name\":\"EmissionInterval\",\"type\":\"float\",\"link\":8}],\"outputs\":[{\"name\":\"value\",\"type\":\"EmissionModule\",\"links\":[4],\"slot_index\":0}],\"properties\":{}},{\"id\":7,\"type\":\"PS/UpdateModule\",\"pos\":[191,653],\"size\":{\"0\":161.1999969482422,\"1\":66},\"flags\":{},\"order\":1,\"mode\":0,\"inputs\":[{\"name\":\"ColorCurve\",\"type\":\"Vec3Curve\",\"link\":null},{\"name\":\"ScaleCurve\",\"type\":\"Vec2Curve\",\"link\":null},{\"name\":\"OpacityCurve\",\"type\":\"FloatCurve\",\"link\":null}],\"outputs\":[{\"name\":\"value\",\"type\":\"UpdateModule\",\"links\":[5],\"slot_index\":0}],\"properties\":{}},{\"id\":2,\"type\":\"PS/ParticleEmitter\",\"pos\":[465,122],\"size\":{\"0\":210,\"1\":142},\"flags\":{},\"order\":7,\"mode\":0,\"inputs\":[{\"name\":\"SpawnModule\",\"type\":\"SpawnModule\",\"link\":2},{\"name\":\"PhysicsModule\",\"type\":\"PhysicsModule\",\"link\":3},{\"name\":\"EmissionModule\",\"type\":\"EmissionModule\",\"link\":4},{\"name\":\"UpdateModule\",\"type\":\"UpdateModule\",\"link\":5}],\"outputs\":[{\"name\":\"value\",\"type\":\"emitter\",\"links\":[1],\"slot_index\":0}],\"properties\":{\"layerIndex\":0}},{\"id\":10,\"type\":\"Math/Float\",\"pos\":[-329,689],\"size\":[180,40],\"flags\":{},\"order\":2,\"mode\":0,\"outputs\":[{\"name\":\"value\",\"type\":\"float\",\"links\":[8],\"slot_index\":0}],\"properties\":{\"value\":1}},{\"id\":8,\"type\":\"Math/Float\",\"pos\":[-323,593],\"size\":[180,40],\"flags\":{},\"order\":3,\"mode\":0,\"outputs\":[{\"name\":\"value\",\"type\":\"float\",\"links\":[9],\"slot_index\":0}],\"properties\":{\"value\":1}},{\"id\":9,\"type\":\"Math/Float\",\"pos\":[-317,500],\"size\":[180,40],\"flags\":{},\"order\":4,\"mode\":0,\"outputs\":[{\"name\":\"value\",\"type\":\"float\",\"links\":[7],\"slot_index\":0}],\"properties\":{\"value\":1}},{\"id\":3,\"type\":\"PS/SpawnBehavior\",\"pos\":[90,93],\"size\":{\"0\":178,\"1\":146},\"flags\":{},\"order\":5,\"mode\":0,\"inputs\":[{\"name\":\"Position\",\"type\":\"vec3\",\"link\":null},{\"name\":\"PositionOffset\",\"type\":\"vec3,Shape\",\"link\":null},{\"name\":\"Velocity\",\"type\":\"vec3,Vec3Range,VelocityCone\",\"link\":null},{\"name\":\"Scale\",\"type\":\"vec2,Vec2Range\",\"link\":null},{\"name\":\"Color\",\"type\":\"vec3,Vec3Range\",\"link\":null},{\"name\":\"Rotation\",\"type\":\"float,FloatRange\",\"link\":null},{\"name\":\"Mass\",\"type\":\"float,FloatRange\",\"link\":null}],\"outputs\":[{\"name\":\"value\",\"type\":\"SpawnModule\",\"links\":[2],\"slot_index\":0}],\"properties\":{}}],\"links\":[[1,2,0,1,0,\"emitter\"],[2,3,0,2,0,\"SpawnModule\"],[3,4,0,2,1,\"PhysicsModule\"],[4,6,0,2,2,\"EmissionModule\"],[5,7,0,2,3,\"UpdateModule\"],[7,9,0,6,0,\"float,FloatRange\"],[8,10,0,6,2,\"float\"],[9,8,0,6,1,\"float\"]],\"groups\":[],\"config\":{},\"extra\":{},\"version\":0.4}",
+	"emitters" : 
+	[
+		{
+			"key" : "0",
+			"value": {
+				"ConeAngle": "0",
+				"ConeAxis": {
+					"x": "1",
+					"y": "1",
+					"z": "1"
+				},
+				"InnerConeAngle": "-2",
+				"airDensity": "3",
+				"boxShapeScale": {
+					"x": "50",
+					"y": "20",
+					"z": "50"
+				},
+				"colMax": "1",
+				"colMin": "1",
+				"colNodeCount": "4",
+				"colRangeType": "X_Y_Z",
+				"colScale": {
+					"x": "0",
+					"y": "0",
+					"z": "0"
+				},
+				"colSpline": {
+					"sx": {
+						"points": [
+							{
+								"value": {
+									"x": "0",
+									"y": "0.9"
+								}
+							},
+							{
+								"value": {
+									"x": "0.5",
+									"y": "0.6"
+								}
+							},
+							{
+								"value": {
+									"x": "0.9",
+									"y": "0.8"
+								}
+							},
+							{
+								"value": {
+									"x": "1",
+									"y": "0.6"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							}
+						]
+					},
+					"sy": {
+						"points": [
+							{
+								"value": {
+									"x": "0",
+									"y": "0.2"
+								}
+							},
+							{
+								"value": {
+									"x": "0.2",
+									"y": "0.1"
+								}
+							},
+							{
+								"value": {
+									"x": "0.5",
+									"y": "0.1"
+								}
+							},
+							{
+								"value": {
+									"x": "1",
+									"y": "0.1"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							}
+						]
+					},
+					"sz": {
+						"points": [
+							{
+								"value": {
+									"x": "0",
+									"y": "0.2"
+								}
+							},
+							{
+								"value": {
+									"x": "0.2",
+									"y": "0.1"
+								}
+							},
+							{
+								"value": {
+									"x": "0.5",
+									"y": "0.1"
+								}
+							},
+							{
+								"value": {
+									"x": "1",
+									"y": "0.1"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							}
+						]
+					}
+				},
+				"colType": "Direct",
+				"colUpdateOp": "Update_Color_Curve",
+				"curlForce": {
+					"x": "0.2",
+					"y": "0",
+					"z": "0.2"
+				},
+				"curlOpType": "Physics_useCurl",
+				"drag": "2",
+				"emissionInterval": "0.1",
+				"emissionRate": "50",
+				"force": {
+					"x": "0",
+					"y": "0",
+					"z": "0"
+				},
+				"gravity": {
+					"x": "0",
+					"y": "0",
+					"z": "0"
+				},
+				"lifeMax": "3.55",
+				"lifeMin": "2.78",
+				"lifeType": "Range",
+				"massMax": "0",
+				"massMin": "1",
+				"massType": "Direct",
+				"opcNodeCount": "0",
+				"opcSpline": {
+					"points": [
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						},
+						{
+							"value": {
+								"x": "0",
+								"y": "0"
+							}
+						}
+					]
+				},
+				"opcUpdateOp": "Direct",
+				"pointAttractForce": "0",
+				"pointRepelForce": "0",
+				"posOffset": {
+					"x": "0",
+					"y": "0",
+					"z": "0"
+				},
+				"posOffsetType": "OffSet_Sphere",
+				"posType": "Position_Simulation",
+				"position": {
+					"x": "0",
+					"y": "0",
+					"z": "0"
+				},
+				"rotMax": "0",
+				"rotMin": "0",
+				"rotType": "Direct",
+				"sclNodeCount": "3",
+				"sclSpline": {
+					"sx": {
+						"points": [
+							{
+								"value": {
+									"x": "0",
+									"y": "0.4"
+								}
+							},
+							{
+								"value": {
+									"x": "0.7",
+									"y": "0.2"
+								}
+							},
+							{
+								"value": {
+									"x": "1",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "1",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							}
+						]
+					},
+					"sy": {
+						"points": [
+							{
+								"value": {
+									"x": "0",
+									"y": "0.5"
+								}
+							},
+							{
+								"value": {
+									"x": "0.7",
+									"y": "0.3"
+								}
+							},
+							{
+								"value": {
+									"x": "1",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "1",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							},
+							{
+								"value": {
+									"x": "0",
+									"y": "0"
+								}
+							}
+						]
+					}
+				},
+				"sclUpdateOp": "Update_Scale_Curve",
+				"sphereShapeRadius": "0.4",
+				"sphereShapeVelType": "Offset_Sphere_Velocity_Outward",
+				"szeMax": "0",
+				"szeMin": "0",
+				"szeRangeType": "XY",
+				"szeScale": {
+					"x": "1",
+					"y": "1"
+				},
+				"szeType": "Direct",
+				"velMax": "-5",
+				"velMin": "-1",
+				"velRangeType": "X_Y_Z",
+				"velScale": {
+					"x": "0",
+					"y": "0",
+					"z": "0"
+				},
+				"velType": "Direct",
+				"vortexAxis": {
+					"x": "0",
+					"y": "1",
+					"z": "0"
+				},
+				"vortexOpType": "Physics_useVortex",
+				"vortexRadius": "1",
+				"vortexStrength": "2",
+				"windOpType": "Physics_useWind",
+				"windVelocity": {
+					"x": "0",
+					"y": "10",
+					"z": "0"
+				}
+			}
+		}
+	],
+	"textures" : 
+	[
+		{
+			"key" : "0",
+			"value" : "F:\\JoySquad\\SPP\\Assets\\textures\\particles\\fire.png"
+		}
+	]
+}

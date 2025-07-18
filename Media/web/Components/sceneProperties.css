@@ -1,0 +1,60 @@
+.SP_Root {
+    background-color: #1a1a1a;
+    scrollbar-gutter: initial;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 5px;
+}
+
+.SP-FlexContainer {
+    display: flex;
+    padding: 4px;
+}
+
+.SP-TitleLabel {
+    background-color: #555555;
+    color: rgb(255, 255, 255);
+    padding: 6px;
+    display: inline-flex;
+}
+
+.SP-Button {
+    border: none;
+}
+
+.SP-GroupContainer {
+    background-color: #2b2b2b;
+    margin: 4px;
+    border: 2px solid rgb(109, 111, 114);
+    border-radius: 2px;
+}
+
+.SP-GroupContainer-Title {
+    display: flex;
+    background-color: #6c6c6c;
+    padding: 4px;
+    user-select: none;
+}
+
+.SP-GroupToggle {
+    align-self: center;
+    transition: transform 0.3s;
+    margin-right: 8px;
+}
+
+.SP-GroupToggle.activated {
+    transform: rotate(90deg);
+}
+
+.SP-GroupContent {
+    display: none;
+}
+
+.SP-GroupContent.activated {
+    display: block;
+}
+
+.SP-NumberInput {
+    width: 9ch;
+    margin-right: 4px;
+}

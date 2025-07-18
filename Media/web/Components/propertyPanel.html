@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        .PanelFrame {
+            width: 400px;
+            height: 500px;
+            background-color:gray;
+        }
+    </style>
+
+    <title> Propert Panel Test</title>
+
+    <script type="text/javascript" src="./../Dependencies/jQuery/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="./../Dependencies/GoldenLayout/goldenlayout.js"></script>
+    <script type="text/javascript" src="./../Dependencies/litegraph.js/SPPlitegraph.core.js"></script>
+    <script type="text/javascript" src="./../Dependencies/chart.js/dist/chart.umd.js"></script>
+    <script type="text/javascript" src="./../Dependencies/chartjs-plugin-dragdata/chartjs-plugin-dragdata.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="./../Dependencies/fontawesome/css/fontawesome.css" />
+    <link type="text/css" rel="stylesheet" href="./../Dependencies/fontawesome/css/brands.css" />
+    <link type="text/css" rel="stylesheet" href="./../Dependencies/fontawesome/css/solid.css" />
+
+    <link text="text/css" rel="stylesheet" href="./propertyPanel.css" />
+</head>
+
+<body>
+    <div class="PanelFrame" id="TestProp">
+    </div>
+
+
+    <button id="btnRun">json test</button>
+
+    <script type="text/javascript" src="./propertyPanel.js"></script>
+
+</body>
+
+</html>
