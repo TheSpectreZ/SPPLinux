@@ -25,6 +25,4 @@ done
 # Export updated LD_LIBRARY_PATH
 export LD_LIBRARY_PATH
 
-chmod +x SPPGameServerd
-
 ./SPPGameServerd  -nogc -port="$PORT"
