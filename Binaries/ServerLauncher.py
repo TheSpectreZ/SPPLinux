@@ -7,7 +7,7 @@ from waitress import serve
 app = Flask(__name__)
 
 current_port = 4000
-script_path = "~/SPP/Binaries/Launch.sh"
+script_path = "/mnt/f/Work/EC2/SPP/Binaries/Launch.sh"
 
 @app.route('/create_server', methods=['POST'])
 def create_server():
@@ -19,11 +19,7 @@ def create_server():
         port_str = str(current_port)
         
         subprocess.Popen(
-            ["/bin/bash", script_path, port_str], 
-            cwd=os.path.dirname(script_path),
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-            stdin=subprocess.DEVNULL            
+            ["/bin/bash", script_path, port_str]           
         )
 
         response = {

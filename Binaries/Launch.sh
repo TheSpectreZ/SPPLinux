@@ -1,12 +1,8 @@
 #!/bin/bash
-
 PORT=$1
-
 # Get the directory of the current script
 BINARY_PATH=$(dirname "$(readlink -f "$0")")
-
 cd "$BINARY_PATH"
-
 # Define target directories
 TARGETS=(
     "../3rdParty/ozz-animation/lib"
@@ -15,14 +11,11 @@ TARGETS=(
     "../3rdParty/Physx5/bin/linux.x86_64/release"
     "../3rdPartyPrivate/SteamWorks/redistributable_bin/linux64"
 )
-
 # Construct LD_LIBRARY_PATH
 for TARGET in "${TARGETS[@]}"; do
     ABSOLUTE_PATH=$(realpath "$BINARY_PATH/$TARGET")
     LD_LIBRARY_PATH="$ABSOLUTE_PATH:$LD_LIBRARY_PATH"
 done
-
 # Export updated LD_LIBRARY_PATH
 export LD_LIBRARY_PATH
-
 ./SPPGameServerd  -nogc -port="$PORT"
