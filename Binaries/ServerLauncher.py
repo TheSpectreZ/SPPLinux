@@ -28,7 +28,7 @@ def create_server():
 
         response = {
             "status": "ok",
-            "message": f"Server starting on port {port_str}"
+            "message": "create_server"
         }
 
         current_port += 2  # increment after launch
