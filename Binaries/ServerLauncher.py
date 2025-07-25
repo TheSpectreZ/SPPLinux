@@ -65,30 +65,32 @@ def create_server():
     except Exception as e:
         return jsonify({ "status": "error", "message": str(e) }), 500
 
-@app.route('/check_port_status<int:port>', methods=['GET'])
+@app.route('/check_port_status/<int:port>', methods=['GET'])
 def check_port_status(port):
     print("CHECK_PORT_STATUS: ", port)
     state = GetPortState(port)
     if state is PortState.Connected:
-        return jsonify({ "status": "Connected" })
+        return jsonify({ "status": "Connected", "message": "check_port_status", "port": str(port) })
     elif state is PortState.Pending:
-        return jsonify({ "status": "Pending" })
+        return jsonify({ "status": "Pending", "message": "check_port_status", "port": str(port) })
     elif state is PortState.Cooldown:
-        return jsonify({ "status": "Cooldown" })
+        return jsonify({ "status": "Cooldown", "message": "check_port_status", "port": str(port) })
     else:
-        return jsonify({ "status": "Idle" })
+        return jsonify({ "status": "Idle", "message": "check_port_status", "port": str(port) })
 
 @app.route('/server_connected', methods=['POST'])
 def server_connected():
     port = int(request.get_data(as_text=True))
     print("SERVER_CONNECTED: ", port)
     SetPortState(port, PortState.Connected)
+    return jsonify({ "status": "ok" })
 
 @app.route('/server_shutdown', methods=['POST'])
 def server_shutdown():
     port = int(request.get_data(as_text=True))
     print("SERVER_SHUTDOWN: ", port)
     SetPortState(port, PortState.Cooldown)
+    return jsonify({ "status": "ok" })
 
 def cooldown_watcher():
     while True:
