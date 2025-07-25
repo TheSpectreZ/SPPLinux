@@ -18,4 +18,4 @@ for TARGET in "${TARGETS[@]}"; do
 done
 # Export updated LD_LIBRARY_PATH
 export LD_LIBRARY_PATH
-./SPPGameServerd -port="$PORT"
+./SPPGameServerd -port="$PORT" -nogc
