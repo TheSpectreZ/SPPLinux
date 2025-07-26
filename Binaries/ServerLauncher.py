@@ -56,7 +56,6 @@ def GetPortState(port):
 
 @app.route('/create_server', methods=['POST'])
 def create_server():
-    print("CREATE_SERVER")
     try:
         avail_port = GetAvailablePort()        
         subprocess.Popen(["/bin/bash", "Launch.sh", str(avail_port)])
@@ -67,8 +66,7 @@ def create_server():
 
 @app.route('/check_port_status/<int:port>', methods=['GET'])
 def check_port_status(port):
-    print("CHECK_PORT_STATUS: ", port)
-    state = GetPortState(port)
+    state = PortState(GetPortState(port))
     if state is PortState.Connected:
         return jsonify({ "status": "Connected", "message": "check_port_status", "port": str(port) })
     elif state is PortState.Pending:
@@ -81,14 +79,12 @@ def check_port_status(port):
 @app.route('/server_connected', methods=['POST'])
 def server_connected():
     port = int(request.get_data(as_text=True))
-    print("SERVER_CONNECTED: ", port)
     SetPortState(port, PortState.Connected)
     return jsonify({ "status": "ok" })
 
 @app.route('/server_shutdown', methods=['POST'])
 def server_shutdown():
     port = int(request.get_data(as_text=True))
-    print("SERVER_SHUTDOWN: ", port)
     SetPortState(port, PortState.Cooldown)
     return jsonify({ "status": "ok" })
 
