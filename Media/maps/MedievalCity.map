@@ -1,0 +1,4 @@
+{
+    "map" : "gamemaps/medievalcity/medievalcity",
+    "brain" : "VgBaseMapBrain"
+}
