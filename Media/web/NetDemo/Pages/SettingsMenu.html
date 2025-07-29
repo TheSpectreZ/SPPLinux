@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SettingsMenu</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./../css/base.css" rel="stylesheet" type="text/css">
+        <style>
+            .SettingsMenu
+            {
+                height: 90%;
+            }
+
+            .LabelContainer
+            {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .Label
+            {
+                color: white;
+                text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.533);
+                border-bottom: 3px rgb(228, 154, 25) solid;
+                border-radius: 2px;
+                font-size: 2em;
+                margin: 25px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+            }
+            .Label:hover 
+            {
+                color: var(--SPPGreen); 
+
+                transform: scale(1.02);
+            }
+
+            .ContentContainer
+            {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                height: 80%;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .ContentTab
+            {
+                display: flex;
+                flex-direction: row;
+                width: 65%;
+                scrollbar-gutter: initial;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
+            .ContentTab::-webkit-scrollbar
+            {
+                display: none;
+            }
+            .ContentTab.hidden
+            {
+                display: none;
+            }
+
+            .ContentLabelColumn
+            {
+                width: 50%;
+            }
+
+            .ContentInputColumn
+            {
+                width: 50%;
+            }
+
+            .LabelColumnItem
+            {
+                border: 1px rgb(157, 159, 158) solid;
+                box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.325);   
+                padding: 10px;    
+                margin-bottom: 4px;
+                font-size: 1em;
+                height: 35px;
+                color: white;
+                display: flex;
+                align-items: center;
+            }
+            .LabelColumnItem:nth-child(odd)
+            {
+                background-color: rgba(54, 54, 54, 0.97);
+            }
+            .LabelColumnItem:nth-child(even)
+            {
+                background-color: rgba(44, 44, 45, 0.97);
+            }
+
+            .InputContainer
+            {
+                border: 1px rgb(157, 159, 158) solid;
+                box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.325);  
+                margin-bottom: 4px;
+                height: 55px;
+                color: white;
+                align-content: center;
+            }
+            
+            .InputContainer:nth-child(odd) 
+            {
+                background-color: rgba(44, 44, 44, 0.99);
+            }
+            
+            .InputContainer:nth-child(even) 
+            {
+                background-color: rgba(54, 54, 54, 0.97);
+            }
+            
+            input[type=number]::-webkit-inner-spin-button, 
+            input[type=number]::-webkit-outer-spin-button 
+            {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            
+            .NumberInput
+            {
+                font-size: 1em;
+                justify-items: center;
+                color: white;
+                margin-bottom: 4px; 
+                background-color: rgba(255, 255, 255, 0);
+                width: 98%;
+                height: 95%;
+                border: none;
+            }
+            .NumberInput:focus
+            {
+                outline: none;
+            }
+            
+            .SliderContainer
+            {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: left;
+                padding: 0px;
+            }
+
+            .SliderInput
+            {
+                width: 60%;
+                appearance: none;
+                height: 6px;
+                background: #8d949b;
+                border-radius: 3px;
+                outline: none;
+                display: flex;
+                justify-self: center;
+            }
+
+            .SliderLabel
+            {
+                font-size: 1em;
+                justify-items: right;
+                color: white;
+                background-color: rgba(255, 255, 255, 0);
+                width: 20%;
+                border: none;
+                margin-right: 10%;
+            }
+            .SliderLabel:focus
+            {
+                outline: none;
+            }
+        
+            .SliderInput::-webkit-slider-thumb 
+            {
+                -webkit-appearance: none;
+                width: 14px;
+                height: 14px;
+                background: white;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .CheckboxInput 
+            {
+                display: grid;
+                place-self: center;
+                appearance: none;
+                -webkit-appearance: none;
+                width: 20px;
+                height: 20px;
+                background-color: transparent;
+                border: 2px solid white;
+                position: relative;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                transform: rotate(45deg);
+            }
+
+            .CheckboxInput:checked::before 
+            {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 11px;
+                height: 11px;
+                background-color: var(--SPPGold);
+                transform: translate(-50%, -50%);
+            }
+
+            .SelectionContainer
+            {
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .SelectedOption 
+            {
+                padding: 8px 10px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .SelectedOption::after 
+            {    
+                content: "▼"; /* Unicode down arrow */
+                font-size: 10px;
+                pointer-events: none;
+            }
+            .SelectedOption.open::after
+            {
+                content: "▲";
+            }
+
+            .OptionsContainer {
+                display: none;
+                background-color: #2a2a2a;
+                border: 1px solid rgb(157, 159, 158) ;
+                z-index: 5; 
+                position: absolute;
+                margin-top: 1px;
+            }
+
+            .SelectorOptionItem {
+                font-size: 0.9em;
+                padding: 8px 10px;
+                border-top: 1px solid #444;
+                display: block;
+            }
+
+            .SelectorOptionItem:hover {
+                background-color: #e0ad22ae;                
+            }
+
+            .SectionLabel {
+                color: white;
+                font-family: "RingbearerMedium";
+                font-size: 1.6em;
+                padding-top: 10px;
+                padding-left: 5px;
+                padding-bottom: 5px;
+                margin-bottom: 3px;
+                text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.533);
+            }
+
+            .SectionEmptyInput {
+                padding: 5px;    
+                margin-bottom: 4px;
+                height: 38px;
+            }
+        </style>
+    </head>
+    <body>        
+        <script type="module">       
+            import * as SPP from './../js/SPPMain.js';
+
+            class OptionsMenuLayer extends SPP.ToggleableUILayer
+            {
+                constructor(InManager)
+                {
+                    super(InManager);
+
+                    this.content = {};
+                    
+                    this.htmlBlock = document.createElement("div");
+                    this.htmlBlock.classList = "column-container hidden SettingsMenu";
+                   
+                    document.body.append(this.htmlBlock);
+                }
+
+                Show()
+                {
+                    super.Show();
+                    this.htmlBlock.classList.remove("hidden");
+                }
+
+                Hide()
+                {
+                    super.Hide();
+                    this.htmlBlock.classList.add("hidden");
+                }
+
+                OnActivate()
+                {
+                    this.htmlBlock.classList.remove("disabled-ui")
+                }
+
+                OnDeactivate()
+                {
+                    this.htmlBlock.classList.add("disabled-ui");
+                }
+
+                ShowContent(labelName)
+                {
+                    for(var ele in this.content)
+                    {
+                        var value = this.content[ele];
+
+                        if(ele == labelName)
+                            value.style.display = "flex";
+                        else
+                            value.style.display = "none";
+                    }
+                }
+            
+                Initialize(InJson)
+                {
+                    const that = this;
+                    
+                    const LabelContainer = document.createElement("div");
+                    LabelContainer.classList = "LabelContainer";
+                    
+                    const ContentContainer = document.createElement("div");
+                    ContentContainer.classList = "ContentContainer";
+
+                    var bAlternateColor = true;
+
+                    for (const Iter in InJson)
+                    {
+                        const Tab = InJson[Iter];
+                        for(const key in Tab)
+                        {
+                            const Label = document.createElement("div");
+                            Label.classList = "Label";
+                            Label.innerHTML = key;
+                            Label.onclick = (e) => { that.ShowContent(key); }
+                            
+                            bAlternateColor = !bAlternateColor;
+                            if(bAlternateColor)
+                            {
+                                Label.style.backgroundColor *= 1.5;
+                            }
+
+                            LabelContainer.append(Label);
+                            
+                            const content = this.CreateContentTab(Tab[key], key);
+                            ContentContainer.append(content);
+
+                            this.content[key] = content;
+                        }
+                    }
+                
+                    this.htmlBlock.append(LabelContainer);
+                    this.htmlBlock.append(ContentContainer);
+
+                    this.ShowContent(Object.keys(InJson[0])[0]);
+                }
+
+                CreateContentTab(InJson, TabName)
+                {
+                    const container = document.createElement("div");
+                    container.classList = "ContentTab hidden";
+
+                    const LabelCol = document.createElement("div");
+                    LabelCol.classList = "ContentLabelColumn";
+                    container.append(LabelCol);
+
+                    const InputCol = document.createElement("div");
+                    InputCol.classList = "ContentInputColumn";
+                    container.append(InputCol);
+
+                    const sections = [];
+
+                    for(var key in InJson)
+                    {
+                        var ele = InJson[key]
+                       
+                        const Label = document.createElement("div");
+                        Label.classList = (ele.type == "MenuSection") ? "SectionLabel" : "LabelColumnItem";
+                        Label.innerHTML = ele.label;
+                        LabelCol.append(Label);
+
+                        const Input = this.CreateInput(ele, TabName);
+                        InputCol.append(Input);
+                    }
+
+                    return container;
+                }
+
+                CreateInput(InJson, TabName)
+                {
+                    const div = document.createElement("div");
+                    div.classList = "InputContainer";
+
+                    if(InJson.type == "NumericInput")
+                    {      
+                        div.append(this.Input(InJson, TabName, false))
+                    }
+                    else if(InJson.type == "FloatingInput")
+                    {
+                        div.append(this.Input(InJson, TabName, true))
+                    }
+                    else if(InJson.type == "NumericRange")
+                    {
+                        div.append(this.Slider(InJson, TabName, false))
+                    }
+                    else if(InJson.type == "FloatingRange")
+                    {
+                        div.append(this.Slider(InJson, TabName, true))
+                    }
+                    else if(InJson.type == "Checkbox")
+                    {
+                        div.append(this.Checkbox(InJson, TabName));
+                    }
+                    else if(InJson.type == "Selection")
+                    {
+                        div.append(this.OptionSelector(InJson, TabName));
+                    }
+                    else
+                    {
+                        div.classList = "SectionEmptyInput";
+                    }
+                    
+                    return div;
+                }
+
+                Input(InJson, TabName, bFloating)
+                {
+                    const input = document.createElement("input");
+                    input.classList = "NumberInput";
+                    input.type = "number";
+                    input.value = InJson.value;
+                    
+                    if(bFloating)
+                    {
+                        input.oninput = (e) => 
+                        {
+                            window.InvokeNative("SettingsMenu", `OnMenuInput ${TabName} ${InJson.id} ${input.value}`);
+                        };
+                    }
+                    else
+                    {
+                        input.oninput = (e) => 
+                        {
+                            input.value = Math.round(input.value);
+                            
+                            window.InvokeNative("SettingsMenu", `OnMenuInput ${TabName} ${InJson.id} ${input.value}`);
+                        };
+                    }
+                    
+                    return input;
+                }
+
+                Slider(InJson, TabName, bFloating)
+                {
+                    function SetSliderBackground(slider)
+                    {
+                        var value = (slider.value-slider.min)/(slider.max-slider.min)*100
+                        slider.style.background = 'linear-gradient(to right, var(--SPPGold) 0%, var(--SPPGold) ' + value + '%, #8d949b ' + value + '%, #8d949b 100%)';
+                    }
+
+                    const container = document.createElement("div");
+                    container.classList = "SliderContainer";
+                    
+                    const label = document.createElement("input");
+                    label.classList = "SliderLabel";
+                    label.type = "number";
+                    label.value = InJson.value;
+                    container.append(label);
+
+                    const slider = document.createElement("input");
+                    slider.classList = "SliderInput";
+                    slider.type = "range";
+                    container.append(slider);                    
+
+                    slider.min = Number(InJson.min);
+                    slider.max = Number(InJson.max);
+                    slider.value = Number(InJson.value);
+                    slider.default = Number(InJson.value);
+
+                    label.value = slider.value;
+                    
+                    SetSliderBackground(slider);
+
+                    if(bFloating)
+                    {
+                        slider.oninput = (e) => 
+                        {
+                            slider.value = Math.round(slider.value);
+                            
+                            label.value = slider.value;
+                            SetSliderBackground(slider);
+                            
+                            window.InvokeNative("SettingsMenu", `OnMenuInput ${TabName} ${InJson.id} ${slider.value}`);
+                        }
+
+                        label.oninput = (e) =>
+                        {
+                            console.log("sliderLabel");
+                    
+                            const val = Number(label.value);
+                            const min = Number(slider.min);
+                            const max = Number(slider.max);
+                            
+                            if(val > max)
+                                label.value = max;
+                            else if(val < min)
+                                label.value = min;
+                            else
+                                label.value = val;
+
+                            label.value  = Math.round(label.value);
+                            slider.value = label.value;
+
+                            SetSliderBackground(slider);
+
+                            window.InvokeNative("SettingsMenu", `OnMenuInput ${TabName} ${InJson.id} ${slider.value}`);
+                        }
+                    }
+                    else
+                    {
+                        slider.oninput = (e) => 
+                        {
+                            label.value = slider.value;
+                            SetSliderBackground(slider);
+                            
+                            window.InvokeNative("SettingsMenu", `OnMenuInput ${TabName} ${InJson.id} ${slider.value}`);
+                        }
+
+                        label.oninput = (e) =>
+                        {
+                            console.log("sliderLabel");
+
+                            const val = Number(label.value);
+                            const min = Number(slider.min);
+                            const max = Number(slider.max);
+                            
+                            if(val > max)
+                                label.value = max;
+                            else if(val < min)
+                                label.value = min;
+                            else
+                                label.value = val;
+
+                            label.value  = label.value;
+                            slider.value = label.value;
+
+                            SetSliderBackground(slider);
+
+                            window.InvokeNative("SettingsMenu", `OnMenuInput ${TabName} ${InJson.id} ${slider.value}`);
+                        }
+                    }
+
+                    return container;
+                }
+
+                Checkbox(InJson, TabName)
+                {
+                    const input = document.createElement("input");
+                    input.classList = "CheckboxInput"
+                    input.type = "checkbox";
+                    input.checked = InJson.value;
+
+                    input.oninput = (e) =>
+                    {
+                        window.InvokeNative("SettingsMenu", `OnMenuInput ${TabName} ${InJson.id} ${input.checked}`);
+                    }   
+
+                    return input;
+                }
+
+                OptionSelector(InJson, TabName)
+                {
+                    const div = document.createElement("div");
+                    div.classList = "SelectionContainer";
+                    
+                    const label = document.createElement("div");
+                    label.className = "SelectedOption";
+                    label.textContent = InJson.value;
+                    div.append(label)
+
+                    const options = document.createElement("div");
+                    options.className = "OptionsContainer";
+                    div.append(options);
+                    
+                    InJson.options.forEach(opt => 
+                    {
+                        const option = document.createElement("div");
+                        option.className = "SelectorOptionItem";
+                        option.textContent = opt;
+                        option.value = opt;
+                        
+                        option.onclick = (e) => 
+                        {
+                            label.textContent = option.value;
+                            options.style.display = "none";
+
+                            window.InvokeNative("SettingsMenu", `OnMenuInput ${TabName} ${InJson.id} ${option.value}`);
+                        };
+                    
+                        options.appendChild(option);
+                    });
+
+                    label.onclick = (e) => 
+                    {
+                        label.classList.toggle("open");
+
+                        options.style.top   = `${div.offsetTop + div.offsetHeight}px`;
+                        options.style.left  = `${div.offsetLeft }px`;
+                        options.style.width = `${div.offsetWidth}px`;
+
+                        options.style.display = options.style.display == "block" ? "none" : "block";
+                    };
+
+                    return div;
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////
+            
+            let activeUImanager = new SPP.UIManager();
+
+            const background = new SPP.BackgroundLayer(activeUImanager);
+            background.SetBackgroundImage("./../img/background.jpg");
+            background.SetLogoImage("./../img/logo.png");
+            background.Show();
+
+            const optionMenu = new OptionsMenuLayer(activeUImanager);
+            
+            const footer = new SPP.FooterLayer(activeUImanager);
+            {
+                const backBtn = footer.AddButton("Back", () => { window.history.back(); });
+                backBtn.style.fontSize = "0.8em";
+                backBtn.style.marginLeft = "2px";
+            }
+            
+            footer.Show();
+
+            ////////////////////////////////////////////////////////////////
+
+            function PopulateMenuLayout(InJsonString)
+            {
+                const JsonValue = JSON.parse(InJsonString);
+            
+                optionMenu.Initialize(JsonValue);
+                optionMenu.Show();
+            }
+            window["PopulateMenuLayout"] = PopulateMenuLayout;
+
+            ////////////////////////////////////////////////////////////////
+
+            document.addEventListener("DOMContentLoaded", ev => {
+                window.InvokeNative("SettingsMenu", "RequestMenuLayout PopulateMenuLayout");
+
+                if(window.CallNativeWithJSON == null)
+                    PopulateMenuLayout(JSON.stringify(JsonTest));
+            });
+
+            ////////////////////////////////////////////////////////////////
+            
+            const JsonTest = [
+                {
+                    "Test":
+                        [
+                            {
+                                "id": "numericInput",
+                                "label": "Numeric Input",
+                                "type": "NumericInput",
+                                "value": "100"
+                            },
+                            {
+                                "id": "numericRange",
+                                "label": "Numeric Range",
+                                "type": "NumericRange",
+                                "value": "100",
+                                "max": "100",
+                                "min": "0",
+                            },
+                            {
+                                "id": "checkbox",
+                                "label": "Check Box",
+                                "type": "Checkbox",
+                                "value": "100"
+                            },
+                            {
+                                "id": "section",
+                                "label": "Section",
+                                "type": "MenuSection"
+                            },
+                            {
+                                "id": "selection",
+                                "label": "Selection",
+                                "type": "Selection",
+                                "value": "ALPHA",
+                                "options":
+                                    [
+                                        "None",
+                                        "Alpha",
+                                        "Beta"
+                                    ],
+                            }
+                        ]
+                }
+            ];
+
+
+        </script>
+    </body>
+</html>

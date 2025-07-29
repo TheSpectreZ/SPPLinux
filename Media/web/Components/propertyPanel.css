@@ -1,0 +1,33 @@
+
+.PropertyPanel {
+    z-index: 1;
+    width: 100%;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    justify-items: start;
+    align-items: start;
+    align-content: start;
+}
+
+.ui-selectmenu-open {
+    z-index: 5;
+}
+
+
+.PropertyName {
+    text-align: right;
+    width: 100%;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-right-width: 1px;
+    box-sizing: content-box;
+}
+
+.PropertyValue {
+    width: 100%;
+    z-index: 1;
+}

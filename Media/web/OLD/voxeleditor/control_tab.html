@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        
+		<link href="../fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css">
+		<link href="../fontawesome/css/brands.css" rel="stylesheet" type="text/css">
+		<link href="../fontawesome/css/solid.css" rel="stylesheet" type="text/css">
+
+		<link href="voxel_colors.css" rel="stylesheet" type="text/css">
+	
+        <script type="text/javascript" src="../jQuery/jquery-3.5.1.js"></script>	
+        
+      
+    <style>
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;	      
+    }
+    
+    
+    .flex-container {
+      display: flex;
+      flex-direction: row;
+    }
+	
+     .flex-thumbnails {
+      display: flex;
+      flex-flow: row wrap;
+      flex-direction: row;
+      align-content: flex-start;
+    }
+    
+	.voxelTypeButton {
+      width: 100%;
+    }
+    
+    .colorSquare {
+      width: 32px;
+      height: 32px;
+      margin: 4px;
+    }
+	
+	.voxelName { 	
+		display: flex;
+		vertical-align: middle;
+		align-items:center;
+        justify-content:center;
+	}
+
+	.sectionOutline {
+		padding: 5px;	 
+		border: solid 1px black;
+	}
+
+    </style>
+	
+
+
+	</head>
+	<body style="background-color:rgba(0, 0, 0, 0);">
+       <div class="flex-container sectionOutline">
+             
+          <div><button id="buttonPaint" onclick="javascript:editorSelection(0);"><i class="fa-solid fa-brush"></i> </button> </div>
+          <div><button id="buttonErase" onclick="javascript:editorSelection(1);"><i class="fa-solid fa-eraser"></i> </button> </div>
+          <div><button id="buttonMesh" onclick="javascript:editorSelection(2);"><i class="fa-solid fa-hotel"></i> </button> </div>
+          <div><button id="buttonSettings" onclick="javascript:editorSelection(3);"><i class="fa-solid fa-gear"></i> </button> </div>
+              
+        </div>
+		
+		<!-- 		
+		bed rock  	1 
+		stone       2 
+		metal       3 
+		wood        4 
+		ice         5 
+		vine		6 
+		dirt		7 
+		grass		8 
+		sand        9 		
+		-->
+		
+		<div id="brushInfoDiv" class="sectionOutline"> 
+			
+            
+                <div id="brushInfoPlacementTypeDiv" class="flex-container">                    
+                    <div><button id="buttonReplace" onclick="javascript:placementMode(0);"><i class="fa-solid fa-spoon"></i></button> </div>
+                    <div><button id="buttonFill" onclick="javascript:placementMode(1);"><i class="fa-solid fa-fill"></i></button> </div>                
+                    <div><button id="buttonCover" onclick="javascript:placementMode(2);"><i class="fa-solid fa-snowflake"></i></button> </div>
+                 </div>
+                    
+                <div  class="flex-container">    
+                    <div><button id="buttonSphere" onclick="javascript:shapeMode(0);"><i class="fa-solid fa-circle"></i></button> </div>
+                    <div><button id="buttonBox" onclick="javascript:shapeMode(1);"><i class="fa-solid fa-square"></i></button> </div>
+                   <!-- <div><button id="buttonSpray" onclick="javascript:shapeMode(2);"><i class="fa-solid fa-spray-can"></i></button> </div> -->
+                 </div>
+			
+			<div class="flex-container">
+		  
+		   <div>Brush:</div><input type="range" min="1" max="50" value="10" class="slider" id="brushSize">
+		   <div id="brushSizeDiv">10</div>
+		   </div>	
+           
+           <!--
+			<div class="flex-container">		  
+		   <div>Spray:</div><input type="range" min="1" max="50" value="10" class="slider" id="sprayIntensity">
+		   <div id="sprayIntensityDiv">10</div>
+		   </div> -->	
+		   
+		</div>
+        
+        <div id="voxelSelectDiv" class="sectionOutline">        
+            
+			
+            
+	 
+        </div>
+        
+        
+            
+            
+        
+		
+		<div id="meshSelectDiv" class="sectionOutline">        
+         
+             <div>                
+                <div class="flex-container ">               
+                <div>Scale:</div><input type="range" min="25" max="500" value="100" class="slider" id="meshScale" onchange="javascript:meshScaleChange(this.value)">
+                <div id="meshScaleDiv">100%</div>
+                </div>
+                
+                <div class="sectionOutline"> 
+                    <label><b>Pivot</b></label>
+                    <div class="flex-container"> 
+                        <label>Horizontal Alignment:</label>                
+                        <input type="radio" id="alignHorzL" name="alignHorz" value="Left" onclick="javascript:horzAlignClick(0)"><label>Left</label>                        
+                        <input type="radio" id="alignHorzC" name="alignHorz" value="Center" onclick="javascript:horzAlignClick(1)" checked><label>Center</label>  
+                        <input type="radio" id="alignHorzR" name="alignHorz" value="Right" onclick="javascript:horzAlignClick(2)"><label>Right</label>       
+                    </div>
+                    
+                    <div class="flex-container"> 
+                        <label>Vertical Alignment:</label>                
+                        <input type="radio" id="alignVertT" name="alignVert" value="Top" onclick="javascript:vertAlignClick(0)"><label>Top</label>                        
+                        <input type="radio" id="alignVertC" name="alignVert" value="Center" onclick="javascript:vertAlignClick(1)" checked><label>Center</label>  
+                        <input type="radio" id="alignVertB" name="alignVert" value="Bottom" onclick="javascript:vertAlignClick(2)"><label>Bottom</label>       
+                    </div>
+                    
+                    <div class="flex-container"> 
+                        <div>Offset: </div>
+                        <div>X:</div><input type="number" id="txtPivotX" value="0" style="width: 4em" onchange="javascript:meshOffset(0,this.value)"> 
+                        <div>Y:</div><input type="number" id="txtPivotY" value="0" style="width: 4em" onchange="javascript:meshOffset(1,this.value)"> 
+                        <div>Z:</div><input type="number" id="txtPivotZ" value="0" style="width: 4em" onchange="javascript:meshOffset(2,this.value)">
+                    </div> 
+
+                    <div class="flex-container"> 
+                        <div>Rotation: </div>
+                        <div>X:</div><input type="number" id="txtPivotRotX" value="0" style="width: 4em" onchange="javascript:meshRot(0,this.value)"> 
+                        <div>Y:</div><input type="number" id="txtPivotRotY" value="0" style="width: 4em" onchange="javascript:meshRot(1,this.value)"> 
+                        <div>Z:</div><input type="number" id="txtPivotRotZ" value="0" style="width: 4em" onchange="javascript:meshRot(2,this.value)">
+                    </div>                       
+                </div>
+                
+                <div class="flex-container"> 
+                    <div>Random Rotation: </div>
+                    <div>X</div><input type="checkbox" id="chkXRotation" onclick="javascript:setRandRot(0,this.checked ? 1 : 0)"> 
+                    <div>Y</div><input type="checkbox" id="chkYRotation" onclick="javascript:setRandRot(1,this.checked ? 1 : 0)"> 
+                    <div>Z</div><input type="checkbox" id="chkZRotation" onclick="javascript:setRandRot(2,this.checked ? 1 : 0)">
+                </div>
+            </div>
+            
+            <div>
+            <p id="meshTextInfo">Mesh Info</p>
+            <div>
+
+            <div id="meshListDiv" class="sectionOutline flex-thumbnails"> 
+            <button> 
+            <img src="texturegrid.png" alt="defaul" width="64" height="64">
+            <div>Mesh Name</div>
+            </button>
+            
+            <button> 
+            <img src="texturegrid.png" alt="defaul" width="64" height="64">
+            <div>Mesh Name</div>
+            </button>
+            
+            <button> 
+            <img src="texturegrid.png" alt="defaul" width="64" height="64">
+            <div>Mesh Name</div>
+            </button>
+            
+            <button> 
+            <img src="texturegrid.png" alt="defaul" width="64" height="64">
+            <div>Mesh Name</div>
+            </button>
+            
+            <button> 
+            <img src="texturegrid.png" alt="defaul" width="64" height="64">
+            <div>Mesh Name</div>
+            </button>
+            
+            </div>
+	 
+        </div>
+		
+		<div id="settingsDiv" class="sectionOutline">        
+			
+			<div><button id="buttonNew" onclick="javascript:doNew()"><i class="fa-solid fa-file"></i></button> </div>
+			<div><button id="buttonLoad" onclick="javascript:doLoad()"><i class="fa-solid fa-folder-open"></i></button> </div>
+            <div><button id="buttonSave" onclick="javascript:doSave()"><i class="fa-solid fa-save"></i></button> </div>
+
+	 
+        </div>
+		
+		
+		<script>
+        
+        if(!window.InvokeNative)
+        {
+            window.InvokeNative = function(InFuncName, ...theArgs) {				
+                console.log("No Native Invoke: " + JSON.stringify({ func: InFuncName, args: theArgs }))
+            }
+        }
+        
+        function meshOffset(InAxis, InValue) {	
+            window.InvokeNative("EDITOR", "meshOffset " + InAxis + " " + InValue );
+		}        
+        function meshRot(InAxis, InValue) {	
+            window.InvokeNative("EDITOR", "meshRot " + InAxis + " " + InValue );
+		}
+        function setRandRot(InAxis, InValue) {							
+            window.InvokeNative("EDITOR", "setRandRot " + InAxis + " " + InValue );
+		}
+        
+        function meshScaleChange(InValue) {	
+            let meshScaleDiv = document.getElementById("meshScaleDiv");	
+            meshScaleDiv.innerHTML = InValue + "%";
+            window.InvokeNative("EDITOR", "meshScaleChange " + InValue );
+		}
+        function horzAlignClick(InValue) {							
+            window.InvokeNative("EDITOR", "horzAlignClick " + InValue );
+		}
+        function vertAlignClick(InValue) {							
+            window.InvokeNative("EDITOR", "vertAlignClick " + InValue );
+		}
+        
+        
+        
+
+		let brushSizeDiv = document.getElementById("brushSizeDiv");	
+		
+		document.getElementById("brushSize").addEventListener('change', function(event) {
+		  var sliderValue = event.target.value;
+		  brushSizeDiv.innerHTML = sliderValue;
+          window.InvokeNative("EDITOR", "brushSize " + sliderValue );
+		});
+
+
+          /*
+		let sprayIntensityDiv = document.getElementById("sprayIntensityDiv");	
+		document.getElementById("sprayIntensity").addEventListener('change', function(event) {
+		  var sliderValue = event.target.value;
+		  sprayIntensityDiv.innerHTML = sliderValue;      
+		}); */
+
+		
+		let buttonEleNames = [ "buttonPaint",
+							"buttonErase",
+							"buttonMesh",
+							"buttonSettings" ];
+		
+		let buttonEles = [];		
+		buttonEleNames.forEach(function(element) {
+			buttonEles.push( document.getElementById(element) );
+		});
+        
+        buttonEleNames = [ "buttonReplace",
+							"buttonFill",
+							"buttonCover" ];
+        
+        let placementEles = [];		
+		buttonEleNames.forEach(function(element) {
+			placementEles.push( document.getElementById(element) );
+		});
+                
+        buttonEleNames = [ "buttonSphere",
+							"buttonBox" ];
+                            //,"buttonSpray" ];		
+        
+        let shapeEles = [];		
+		buttonEleNames.forEach(function(element) {
+			shapeEles.push( document.getElementById(element) );
+		});
+		
+        let meshEles = [];		
+		
+		
+		let voxelSelectDiv = document.getElementById("voxelSelectDiv");
+		let brushInfoDiv = document.getElementById("brushInfoDiv");
+		let meshSelectDiv = document.getElementById("meshSelectDiv");
+		let settingsDiv = document.getElementById("settingsDiv");
+        
+		let allDivs = [ voxelSelectDiv, brushInfoDiv, meshSelectDiv, settingsDiv ];
+		
+		let divVisibility = [
+				[ voxelSelectDiv, brushInfoDiv ],
+				[ brushInfoDiv ], 
+				[ meshSelectDiv ] ,
+				[ settingsDiv ]
+			];
+		
+		allDivs.forEach(function(element) {
+			element.style.display = "none";	
+		});
+        
+        
+        function placementMode(InValue) {			
+			placementEles.forEach(function(element) {
+				element.style.backgroundColor = null;	
+			});			
+			placementEles[InValue].style.backgroundColor = "green";							
+            window.InvokeNative("EDITOR", "placementMode " + InValue );
+		}
+		
+        function shapeMode(InValue) {			
+			shapeEles.forEach(function(element) {
+				element.style.backgroundColor = null;	
+			});			
+			shapeEles[InValue].style.backgroundColor = "green";							
+            window.InvokeNative("EDITOR", "shapeMode " + InValue );
+		}
+        
+		
+		function editorSelection(InValue) {
+			
+			buttonEles.forEach(function(element) {
+				element.style.backgroundColor = null;	
+			});
+			
+			buttonEles[InValue].style.backgroundColor = "green";	
+			
+			allDivs.forEach(function(element) {
+				element.style.display = "none";	
+			});
+		
+		
+			divVisibility[InValue].forEach(function(element) {
+				element.style.display = null;// "none";	
+			});
+			
+            window.InvokeNative("EDITOR", "editorSelection " + InValue );
+		}
+		
+		function voxelTypeSelection(InValue) {
+			voxelTypeButtons.forEach(function(element) {
+				element.style.backgroundColor = null;	
+			});
+			
+			voxelTypeButtons[InValue].style.backgroundColor = "green";	
+            
+            window.InvokeNative("EDITOR", "voxelTypeSelection " + InValue );
+		}
+		
+		function meshSelected(InValue) {
+            console.log("meshSelected: " +  InValue);
+            
+            meshEles.forEach(function(element) {
+				element.style.backgroundColor = null;	
+			});
+			
+			meshEles[InValue].style.backgroundColor = "green";	
+            
+            window.InvokeNative("EDITOR", "meshSelected " + InValue );        
+        }
+        
+        function populateMeshes(InMeshJSON) {
+        
+            console.log("populateMeshes: " +  InMeshJSON);
+            
+            let meshListDiv = document.getElementById("meshListDiv");
+            meshListDiv.innerHTML = "";	
+            
+            const jsonObj = JSON.parse(InMeshJSON);
+            
+            let curCount = 0;
+            jsonObj.MeshNames.forEach(function(element) {
+                let formattedText = meshDataHTML.format( "meshBtn" + curCount, curCount, element );
+                meshListDiv.innerHTML += formattedText;	
+                curCount++;
+            });
+            
+            meshEles = [];
+            
+            curCount = 0;
+            jsonObj.MeshNames.forEach(function(element) {
+                meshEles.push( document.getElementById("meshBtn" + curCount) );
+                curCount++;
+            });
+            
+            if(curCount > 0) meshSelected(0);
+        }
+        
+        window["populateMeshes"] = populateMeshes;
+        
+		if (!String.prototype.format) {
+		  String.prototype.format = function() {
+			var args = arguments;
+			return this.replace(/{(\d+)}/g, function(match, number) { 
+			  return typeof args[number] != 'undefined'
+				? args[number]
+				: match
+			  ;
+			});
+		  };
+		}
+		
+		let voxel_types = [ "bedrock", 
+							"stone",   
+							"metal",   
+							"wood",    
+							"ice",     
+							"vine",
+							"dirt",
+							"grass",
+							"sand" ];
+
+        let meshDataHTML = `<button id="{0}" onclick="javascript:meshSelected({1});"> 
+            <img src="texturegrid.png" alt="defaul" width="64" height="64">
+            <div>{2}</div>
+            </button>`;
+            
+		let voxelTypeHTML = `<button class="voxelTypeButton" id="{0}" onclick="javascript:voxelTypeSelection({3});" > 
+				<div class="flex-container">
+					<div class="colorSquare" style="background-color: var(--{1});"> </div>
+					<div class="voxelName" >{2}</div>
+				</div>  
+			</button><br>`;
+				
+				
+		let curCount = 0;
+		voxel_types.forEach(function(element) {
+			let formattedText = voxelTypeHTML.format( "button" + element, "vc" + element, element, curCount);
+			voxelSelectDiv.innerHTML += formattedText;	
+			curCount++;
+		});
+
+
+		let voxelTypeButtons = [];
+		
+		voxel_types.forEach(function(element) {
+			voxelTypeButtons.push( document.getElementById("button" + element ) );
+		});
+
+		editorSelection(0);
+		voxelTypeSelection(0);
+        placementMode(0);
+        shapeMode(0);
+
+        window.InvokeNative("EDITOR", "RequestVoxelMeshes" );   
+        
+		</script>
+	</body>
+</html>

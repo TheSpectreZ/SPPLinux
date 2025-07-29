@@ -1,0 +1,46 @@
+.TreeView-Root {
+    user-select: none;
+}
+
+.TreeView-Node {
+    
+    user-select: none;
+}
+
+.TreeView-Node.dragging {
+    opacity: 0.5;
+}
+
+.TreeView-NodeHeader {
+    display: flex;
+}
+
+.TreeView-NodeHeader:hover {
+    background-color: rgb(66, 143, 210);
+}
+
+.TreeView-NodeContent {
+    display: none;
+}
+
+.TreeView-NodeContent.activated {
+    display: block;
+}
+
+.TreeView-NodeToggle {
+    
+    align-self: center;
+    transition: transform 0.3s;
+}
+
+.TreeView-NodeToggle.activated {
+    transform: rotate(90deg);
+}
+
+.TreeView-NodeTitle {
+    align-self: center;
+    padding: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 5px;
+}

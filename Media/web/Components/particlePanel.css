@@ -1,0 +1,18 @@
+.PP_Root {
+    margin: 0;
+}
+
+.PP_NodeContainer {
+    display: none;
+    background-color: rgb(61, 69, 69);
+}
+
+.PP_NodeTitle {
+    background-color: rgb(38, 49, 59);
+    color: white;
+    padding: 10px;
+}
+
+.PP_NodeContainer.activated {
+    display: block;
+}

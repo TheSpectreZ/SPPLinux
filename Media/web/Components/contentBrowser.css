@@ -1,0 +1,184 @@
+#CB_Root {
+    display: flex;
+    width: 100%;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+#CB_Directories {
+    background-color: #252424;
+    padding: 3px;
+    width: 25%;
+    border-right: rgb(117,117,117) solid 4px;
+    scrollbar-gutter: initial;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#CB_Container {
+    width: 75%;
+}
+
+#CB_Content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
+    width: 100%;
+    padding: 5px;
+}
+
+#CB_Navbar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
+    width: 100%;
+    padding: 5px;
+}
+
+.ImporterPanel {    
+    z-index: 4;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 400px;
+    height: 500px;
+    background-color: darkgray;
+}
+
+.ContentFrame {
+    width: 100%;
+    height: 100%;
+    background-color: #262525;
+}
+
+.Navbar-Button {
+    width: 100px;
+    height: 25px;
+    margin: 4px;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 2px;
+    background-color: #afa9a3;
+}
+
+.Navbar-Button:hover {
+    background-color: #aaa0a0;
+}
+
+.Content-Container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.Content-Tile {
+    margin: 4px;
+    width: 100px;
+    height: 160px;
+    user-select: none;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.Content-Tile:hover {
+    box-shadow: 5px 5px 10px 0px rgba(23, 23, 23, 0.7)
+}
+
+.Content-Tile:active {
+    transform: scale(0.95);
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.Tile-Selected {
+    outline: 2px solid white;
+}
+
+.Tile-Loaded {
+    background-color: rgb(0, 255, 0);
+
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 10px;
+    height: 10px;
+}
+
+.Tile-Dirty {
+    background-color: rgb(255, 0, 0);
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    width: 10px;
+    height: 10px;
+}
+
+.Tile-Thumbnail {
+    position: relative;
+    background-color: rgba(156, 156, 156, 0.185);
+    height: 6rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 3px solid;
+    border-color: #c5c5c5;
+}
+
+.Tile-Image {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.Tile-Icon {
+    padding-top: 8px;
+    width: 100%;
+    height: 80%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.Tile-Meta {
+    background-color: #6a6a6a;
+    padding: 1em;
+    height: 4rem;
+    word-wrap: break-word;
+    color: rgb(255, 255, 255);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.Tile-Meta:hover {
+    background-color: #333;
+}
+
+.Context-Menu {
+    display: none;
+    position: absolute;
+    width: 150px;
+    background-color: #111111;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+}
+
+.Context-Menu-Item {
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.Context-Menu-Item:hover {
+    background-color: #3f8eea;
+}
+

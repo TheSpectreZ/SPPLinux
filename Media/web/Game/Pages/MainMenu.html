@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Joysquad</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./../css/base.css" rel="stylesheet" type="text/css">
+        <style>
+            .MainMenu {
+                position: absolute;
+                top: 40%;
+                left: 60px;
+            }
+
+            .QuitMenu {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                align-items: center;
+                background-color: #1f2224df;
+                border-radius: 12px;
+                border: 3px solid var(--pearl);
+                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+            }
+        </style>
+    </head>
+    <body>        
+        <script type="module">       
+            import * as SPP from './../js/SPPMain.js';
+
+            class MainMenuLayer extends SPP.BlockingUILayer
+            {
+                constructor(InManager)
+                {
+                    super(InManager);
+
+                    const ButtonInfo = [
+                        {
+                            label: "Play",
+                            func: () => MainMenuLayer.prototype.Play()
+                        },
+                        {
+                            label: "Settings",
+                            func: () => MainMenuLayer.prototype.Settings()
+                        }
+                    ];
+
+                    this.buttons = [];
+
+                    this.htmlBlock = document.createElement("div");
+                    this.htmlBlock.classList = "column-container hidden MainMenu";
+                    
+                    ButtonInfo.forEach(e => 
+                    {
+                        const div = document.createElement("div");
+                        div.classList = "container-item selectable fs3em";
+                        div.innerHTML = e.label;
+                        div.onclick = (evt) => e.func();
+
+                        this.htmlBlock.append(div);
+                        this.buttons.push(div);
+                    });
+
+                    document.body.append(this.htmlBlock);
+                }
+
+                Show()
+                {
+                    super.Show();
+                    this.htmlBlock.classList.remove("hidden");
+                }
+
+                Hide()
+                {
+                    super.Hide();
+                    this.htmlBlock.classList.add("hidden");
+                }
+
+                OnActivate()
+                {
+                    this.buttons.forEach(btn => {
+                        btn.classList.add("selectable");
+                    });
+
+                    this.htmlBlock.classList.remove("disabled-ui")
+                }
+
+                OnDeactivate()
+                {
+                    this.buttons.forEach(btn => {
+                        btn.classList.remove("selectable");
+                    });
+
+                    this.htmlBlock.classList.add("disabled-ui");
+                }
+            }
+
+            class QuitMenuLayer extends SPP.BlockingUILayer
+            {
+                constructor(InManager)
+                {
+                    super(InManager);
+
+                    this.htmlBlock = document.createElement("div");
+                    this.htmlBlock.classList = "column-container hidden QuitMenu";
+                    this.htmlBlock.style.top = "50%";
+                    this.htmlBlock.style.left = "50%";
+                    this.htmlBlock.style.transform = "translate(-50%, -50%)";
+
+                    {
+                        const div = document.createElement("div");
+                        div.classList = "container-item fs2em";
+                        div.innerHTML = "Are you sure you want quit?";
+
+                        this.htmlBlock.append(div);
+                    }
+
+                    {
+                        const div = document.createElement("div");
+                        div.classList = "row-container";
+                        
+                        const yesbtn = document.createElement("div");
+                        yesbtn.classList = "container-item selectable fs2em";
+                        yesbtn.style.marginRight = "40px";
+                        yesbtn.innerHTML = "Yes";
+                        yesbtn.onclick = (evt) => QuitMenuLayer.prototype.QuitGame();
+
+                        div.append(yesbtn);
+
+                        const nobtn = document.createElement("div");
+                        nobtn.classList = "container-item selectable fs2em";
+                        nobtn.style.marginLeft = "40px";
+                        nobtn.innerHTML = "No";
+                        nobtn.onclick = (evt) => this.Hide();
+
+                        div.append(nobtn);
+
+                        this.htmlBlock.append(div);
+                    }
+
+                    document.body.append(this.htmlBlock);
+                }
+
+                Show() 
+                {
+                    super.Show();
+                    this.htmlBlock.classList.remove("hidden");
+                }
+
+                Hide()
+                {
+                    super.Hide();
+                    this.htmlBlock.classList.add("hidden");
+                }
+                
+            }
+
+            ////////////////////////////////////////////////////////////////
+
+            let activeUImanager = new SPP.UIManager();
+
+            const background = new SPP.BackgroundLayer(activeUImanager);
+            background.SetTitle("Joy Squad");
+            background.SetBackgroundImage("./../img/background.jpg");
+            background.SetLogoImage("./../img/logo.png");
+            background.Show();
+            
+            const mainMenu = new MainMenuLayer(activeUImanager);
+            mainMenu.Show();
+            
+            const quitMenu = new QuitMenuLayer(activeUImanager);
+
+            const footer = new SPP.FooterLayer(activeUImanager);
+            footer.Show();
+            
+            {
+                const quitBtn = footer.AddButton("Quit", () => { quitMenu.Show(); });
+                quitBtn.style.fontSize = "0.8em"
+                quitBtn.style.marginBottom = "2m";
+            }
+            
+            ////////////////////////////////////////////////////////////////
+
+            let PageURL = null
+
+            function InitializeMainMenu(JsonString)
+            {
+                PageURL = JSON.parse(JsonString);
+            }
+            window["InitializeMainMenu"] = InitializeMainMenu;
+
+            ////////////////////////////////////////////////////////////////
+            
+            let CallNative = {
+                MainMenuReady: null,
+                NavigatePage: null,
+                QuitGame: null
+            };
+            SPP.MakeIntoNativeCaller(CallNative, "MenuHandler");
+            
+            document.addEventListener("DOMContentLoaded", (e) => 
+            {
+                CallNative.MainMenuReady("InitializeMainMenu");
+            });
+
+            ////////////////////////////////////////////////////////////////
+            
+            MainMenuLayer.prototype.Play = function()
+            {
+                CallNative.NavigatePage(PageURL.PlayMenu);
+
+                if(window.CallNativeWithJSON == null)
+                    window.location.href = "./PlayMenu.html";
+            }   
+            
+            MainMenuLayer.prototype.Settings = function() 
+            {
+                CallNative.NavigatePage(PageURL.SettingsMenu);
+
+                if(window.CallNativeWithJSON == null)
+                    window.location.href = "./SettingsMenu.html";
+            }
+
+            QuitMenuLayer.prototype.QuitGame = function()
+            {
+                CallNative.QuitGame();
+
+                if (window.CallNativeWithJSON == null)
+                    quitMenu.Hide();
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,18 @@
+.MP_Root {
+    margin: 0;
+}
+
+.MP_NodeContainer {
+    display: none;
+    background-color: rgb(61, 69, 69);
+}
+
+.MP_NodeTitle {
+    background-color: rgb(38, 49, 59);
+    color: white;
+    padding: 10px;
+}
+
+.MP_NodeContainer.activated {
+    display: block;
+}

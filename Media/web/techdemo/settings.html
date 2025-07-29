@@ -1,0 +1,444 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+	:root {
+		--caput-mortuum: #4f3130ff;
+		--wine: #753742ff;
+		--redwood: #aa5042ff;
+		--ecru: #d8bd8aff;
+		--flax: #d8d78fff;
+		--outer-space: #434a46;
+		--viridian: #56876d;
+		--jet: #343333;
+		--engineering-orange: #c40b08;
+		--eerie-black: #1b2021ff;
+		--ebony: #51513dff;
+		--moss-green: #a6a867ff;
+		--vanilla: #e3dc95ff;
+		--pearl: #e3dcc2ff;
+	}
+
+	html, body {
+		height: 100%;
+		width: 100%;
+		margin: 0px;
+		padding: 0px;
+		-webkit-user-select: none; /* Safari */
+		-ms-user-select: none; /* IE 10 and IE 11 */
+		user-select: none; /* Standard syntax */
+		background-image: url("./img/background.jpg");
+		background-size:cover ;
+		background-position: center;
+	}
+
+	@font-face {
+		font-family: "RingbearerMedium";
+		src: url("./fonts/RingbearerMedium-51mgZ.ttf") format("truetype");
+	}
+	
+	* {
+		font-family: "RingbearerMedium";
+	}
+
+	.footer {
+		margin: 10px;
+		display: flex;
+		justify-content: flex-start;
+	}
+	.footer-item {
+		margin: 0 30px;
+   		text-align: center;
+   		font-size: 3em;
+   		color: white;
+   		-webkit-text-stroke: 0.8px black;
+	}
+
+	.footer-item:hover {
+	    color: var(--moss-green);
+		transform: scale(1.05);
+	}
+
+	#FOOTER {
+		position: absolute;
+		bottom: 0px;
+		left: 1.7%;
+		display: flex;
+	}
+
+	.settings-container {
+		flex-direction: column;
+  		align-items: center;
+	}
+
+	.settings-tab-container {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.settings-content-container {
+		justify-content: center;
+		width: 1000px;
+	}
+
+	.settings-tab-title {
+		font-size: 2em;
+		color: white;
+		margin: 5px;
+		border-radius: 10px;
+		width: 150px;
+		padding: 10px 20px;
+		border-radius: 10px 10px 0 0; 
+		text-align: center;
+		margin-bottom: -5px; 
+		background-color: var(--viridian);
+		border: solid 4px #181a1a;
+	}
+
+	.settings-tab-title:hover {
+		color: var(--moss-green);
+	}
+
+	.settings-item-section-title {
+		margin: 10px;
+		color: var(--viridian);
+		font-size: 3em;
+	}
+
+	.settings-tab-item {
+		padding: 10px;
+		font-size: 2em;
+		color: white;
+	}
+	
+	.settings-tab-item:hover {
+		color: var(--moss-green);
+	}
+
+	.settings-content {
+		padding: 10px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		background-color: var(--jet);
+		border: #181a1a solid 4px;
+		border-radius: 10px;
+		max-height: 500px; 
+		height: 550px;
+		overflow-y: scroll;
+		font-size: 1ex;
+	}
+
+	.settings-content::-webkit-scrollbar {
+	    width: 10px; 
+	}
+	
+	.settings-content::-webkit-scrollbar-track {
+	    background: #181a1a; 
+	    border-radius: 8px; 
+	}
+	
+	.settings-content::-webkit-scrollbar-thumb {
+	    background: #345a5a;
+	    border-radius: 5px; 
+	    border: 2px solid #1b2021;
+	}
+	
+	.settings-content::-webkit-scrollbar-thumb:hover {
+	    background: #64acac; 
+	}
+
+	#SETTINGS_MENU {
+		width: 30%;
+		position: absolute;
+		display: flex;
+		top: 5%;
+		left: 35%;
+	}
+
+	img[src="img/logo.png"] {
+		position: absolute;
+	    right: 20px;
+	    bottom: 20px;
+	    width: 5%;
+	}
+
+</style>
+
+<title>Joy Squad</title>
+<link href="./../Dependencies/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css">
+<link href="./../Dependencies/fontawesome/css/brands.css" rel="stylesheet" type="text/css">
+<link href="./../Dependencies/fontawesome/css/solid.css" rel="stylesheet" type="text/css">
+<link href="./css/gamestyle.css" rel="stylesheet" type="text/css">
+
+<body>
+
+	<!-- UI -->
+
+	<img src="img/logo.png" id="LOGO"/>	
+
+	<div class="settings-container" id="SETTINGS_MENU">
+		<div class="settings-tab-container" id="SETTINGS_TABS">
+		</div>
+
+		<div class="settings-content-container" id="SETTINGS_CONTENTS">
+		</div>
+	</div>
+
+	<div class="footer" id="FOOTER">
+		<div class="footer-item" id="FT_BACK" onclick="Back()">
+			Back
+		</div>
+	</div>
+
+	<!-- SCRIPTS -->
+
+	<script type="importmap">
+		{
+		  "imports": {
+			"spp": "./js/SPP.js"
+		  }
+		}
+	</script>
+  	
+	<script type="module">
+  		import * as SPP from 'spp';
+
+  		let activeUIManager = new SPP.UIManager();
+  		let stubLocalHTML = new SPP.UILayer(activeUIManager);
+
+  		activeUIManager.AddUI(stubLocalHTML);
+
+  		let activeConsole = new SPP.GameConsole(activeUIManager);
+  	</script>
+
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+			console.log("DOM fully loaded and parsed");
+		});
+
+		function Back() {
+			// go to previous url
+			window.history.back();
+		}
+
+		var TabNames = [];
+
+		function InitializeSettingsMenu(InJson) {
+			var JsonObj = JSON.parse(InJson);
+		
+			var settingsTabs = document.getElementById("SETTINGS_TABS");
+			settingsTabs.innerHTML = "";
+		
+			var settingsContents = document.getElementById("SETTINGS_CONTENTS");
+			settingsContents.innerHTML = "";
+		
+			JsonObj.Tabs.forEach(function(JsonEle)
+			{
+				var listItem = document.createElement("div");
+				listItem.className = "settings-tab-title";
+				listItem.innerHTML = JsonEle;
+				listItem.id = JsonEle;
+				listItem.onclick = function() { ToggleSettings(JsonEle); };
+
+				settingsTabs.appendChild(listItem);
+			
+				TabNames.push(JsonEle);
+			});
+		
+			JsonObj.Content.forEach(function(JsonEle)
+			{
+				var listItem = document.createElement("div");
+				listItem.className = "settings-content";
+				listItem.id = JsonEle.name;
+				listItem.style.display = "none";
+
+				if(JsonEle.Group != null)
+				{
+					JsonEle.Group.forEach(function(Group)
+					{
+						var group = document.createElement("div");
+						group.className = "settings-item-section-title";
+						group.innerHTML = Group.name;
+					
+						listItem.appendChild(group);
+					
+						Group.Items.forEach(function(Item)
+						{
+							var item = document.createElement("div");
+							item.className = "settings-tab-item";
+							item.innerHTML = Item.name;
+						
+							listItem.appendChild(item);
+						});
+					});
+				}
+			
+				if(JsonEle.Items != null)
+				{
+					JsonEle.Items.forEach(function(Item)
+					{
+						var item = document.createElement("div");
+						item.className = "settings-tab-item";
+						item.innerHTML = Item.name;
+					
+						listItem.appendChild(item);
+					});
+				}
+			
+				settingsContents.appendChild(listItem);
+			});
+		}
+
+		function ToggleSettings(Id) {
+			var settingsContents = document.getElementById("SETTINGS_CONTENTS");
+			settingsContents.childNodes.forEach(function(JsonEle)
+			{
+				JsonEle.style.display = JsonEle.id == Id ? "block" : "none";
+			});
+		}
+
+		var SettingsJson = {
+			Tabs: [ 
+				"General", 
+				"Controls",
+				"Audio", 
+				"Visual",
+			],
+			Content: [
+				{
+					name: "General",
+					Group: [
+						{
+							name: "Accessibility",
+							Items: [
+								{
+									name: "Text Language"
+								},
+								{
+									name: "Enemy Highlight Color"
+								}
+							]
+						},
+						{
+							name: "Mouse",
+							Items: [
+								{
+									name: "Sensitivity: Aim"
+								},
+								{
+									name: "Sensitivity: Scope"
+								},
+								{
+									name: "Invert Mouse"
+								}
+							]
+						}
+					]
+				},
+				{
+					name: "Controls",
+					Group: [
+						{
+							name: "Movement",
+							Items: [
+								{
+									name: "Forward"
+								},
+								{
+									name: "Backward"
+								},
+								{
+									name: "Left"
+								},
+								{
+									name: "Right"
+								}
+							]
+						},
+						{
+							name: "Combat",
+							Items: [
+								{
+									name: "Attack"
+								},
+								{
+									name: "Block"
+								},
+								{
+									name: "Magic"
+								}
+							]
+						}
+					]
+				},
+				{
+					name: "Audio",
+					Items: [
+						{
+							name: "Music"
+						},
+						{
+							name: "SFX"
+						}
+					]
+				},
+				{
+					name: "Visual",
+					Items: [
+						{
+							name: "Resolution"
+						},
+						{
+							name: "Fullscreen"
+						}
+					]
+				}
+			]
+		};
+
+		InitializeSettingsMenu(JSON.stringify(SettingsJson));
+		ToggleSettings(TabNames[0]);
+
+		//////////////////////////
+
+		function ProcessJS(FuncName, ...Args) {	  
+			console.log("ProcessJS: " + FuncName + " : " + Args.length);
+			// find object
+			var fn = window[FuncName];
+
+			// is object a function?
+			if (typeof fn === "function") 
+			{
+				fn.apply(null, Args);
+			}
+		}	
+
+		window.InvokeNative = function(InFuncName, ...theArgs) {				
+			if(window.CallNativeWithJSON)
+			{
+				window.CallNativeWithJSON(JSON.stringify({ func: InFuncName, args: theArgs }));
+			}	
+			else
+			{
+				console.log("No Native Invoke: " + JSON.stringify({ func: 			InFuncName, args: theArgs }))
+			}
+		}
+
+		if(window.RegisterJS)
+		{	
+			window.RegisterJS(ProcessJS);		
+		}
+	</script>
+
+</body>
+
+</html>

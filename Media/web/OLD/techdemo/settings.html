@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+   <meta http-equiv="Pragma" content="no-cache" />
+   <meta http-equiv="Expires" content="0" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+--caput-mortuum: #4f3130ff;
+--wine: #753742ff;
+--redwood: #aa5042ff;
+--ecru: #d8bd8aff;
+--flax: #d8d78fff; -->
+
+
+<style>
+:root {
+--eerie-black: #1b2021ff;
+--ebony: #51513dff;
+--moss-green: #a6a867ff;
+--vanilla: #e3dc95ff;
+--pearl: #e3dcc2ff;
+}
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+body {
+	background-color: transparent;
+	background-repeat: no-repeat;
+  	background-size:cover;
+	background-position: center;
+}
+@font-face {
+	font-family: "Morris Roman";
+	src: url("./fonts/MorrisRoman-Black.ttf") format("truetype");
+}
+* {
+	font-family: "Morris Roman";
+}
+/*	
+	button {
+	  background-color:var(--vanilla); 
+	  border-color: var(--ebony);
+	  color: black;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  font-size: 16px;
+		border-radius: 12px;
+		margin-bottom: 10px;
+		font-size:20px;
+}
+		
+		
+		
+		*/
+button {
+	position: relative;
+	border: none;
+    background-color: transparent;
+    text-align: left; 
+	width: 200px;
+	height: 40px;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-bottom: 20px;
+	color: black;
+	line-height: 40px;
+    font-size:20px;
+}
+	
+	/*
+button:before {
+	content: "";
+	position: absolute;
+	right: 100%;
+	top: 0px;
+	width: 0px;
+	height: 0px;
+	border-top: 20px solid transparent;
+	border-right: 40px solid var(--CTheme2);
+	border-bottom: 20px solid transparent;
+}
+	button:after {
+	content: "";
+	position: absolute;
+	left: 100%;
+	top: 0px;
+	width: 0px;
+	height: 0px;
+	border-top: 20px solid transparent;
+	border-left: 40px solid var(--CTheme2);
+	border-bottom: 20px solid transparent;
+} */
+button:hover {
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+}
+button:active {
+	text-shadow: 0 0 7px #69624D, 0 0 10px #69624D, 0 0 21px #69624D, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+}
+
+.horz-center {
+	position: absolute;
+	transform: translateX(-50%);
+}
+.txt-scroll {
+	background: linear-gradient( to right, #FFFFFF 20%, #FFFFFF 25%, #FF3900 30%, #FFFFFF 35% );
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-fill-color: transparent;
+	background-size: 500% auto;
+	animation: textShine 3s ease-in-out infinite;
+}
+.selection-text {
+    color: black;
+}
+@keyframes textShine {
+0% {
+background-position: 0% 50%;
+}
+100% {
+background-position: 100% 50%;
+}
+}
+.gildedBorder {
+	color: var(--CTheme1);
+	background-clip: border-box;
+	background-color: var(--CTheme2);
+	border: 40px solid;
+	border-image: url("img/gildedborder.svg");
+	border-radius: 30px;
+	border-image-slice: 250 250 250 250;
+}
+.top-title {
+	font-size: 80px;
+	text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000; 
+}
+.flip_H {
+	transform: scale(-1, 1);
+}
+.flip_V {
+	transform: translateX(-50%) translateY(30%) scale(1, -1);
+}
+#bottom-align {
+	position: absolute;
+	bottom: 0;
+	left: 20px;
+}
+	
+.center-align {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+	
+#top-right-align {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+#cursor {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 32px;
+	height: 32px;
+}
+hr {
+	border: 1px dotted var(--ebony);
+}
+</style>
+<title>Joy Squad</title>
+<link href="../fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css">
+<link href="../fontawesome/css/brands.css" rel="stylesheet" type="text/css">
+<link href="../fontawesome/css/solid.css" rel="stylesheet" type="text/css">
+	<link href="./css/gamestyle.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<img src="img/logo.png" width="5%" style="position: absolute; right: 20px; bottom: 20px;" />
+<!-- <img src = "./img/cursor.svg" id="cursor"  /> -->
+
+    <img src="img/joysquad.png" style="position: absolute; top: 40px; left: 40px; "/>
+
+<!--
+<div style="position: absolute; top: 50px; left: 50px; ">
+	<div class="top-title" style="color:white" >Joy Squad</div>				
+</div> -->
+	
+	<div style="position:absolute; left: 30px; bottom: 30px">
+		  <button onclick="javascript: LoadDemoMap()">
+          <img src="img/demo.png"/>
+		  <!-- <div class="selection-text" onclick="javascript: LoadDemoMap()">Demo</div> -->
+		  </button>
+		  <br>
+          <button onclick="javascript: ShowSettings()">
+		  <img src="img/settings.png"/>
+		  </button>
+		  <br>
+		  <button onclick="javascript: DoExit()">
+		  <img src="img/exit.png"/>
+		  </button>
+		</div>
+	
+<br>
+<br>
+<div class="gildedBorder" id="top-right-align">
+  <p style="font-size: 20px"><b>PC INFO</b></p>
+  <hr>
+	<div id="PCInfo" >
+		<p>Pending...</p>
+	</div>
+  
+</div>
+	
+	<script type="importmap">
+	  {
+		"imports": {
+		  "spp": "./js/SPP.js"
+		}
+	  }
+	</script>
+    
+<script type="module">
+
+import * as SPP from 'spp';
+
+let activeUIManager = new SPP.UIManager();
+let stubLocalHTML = new SPP.UILayer(activeUIManager);
+
+activeUIManager.AddUI(stubLocalHTML);
+
+let activeConsole = new SPP.GameConsole(activeUIManager);
+	
+</script>
+    
+    <script>
+    
+    function DoExit() {
+    
+    }
+    
+    function ShowSettings() {
+    
+    
+    }
+
+    function LoadDemoMap() {
+        console.log("LoadDemoMap");
+        window.InvokeNative("ConsoleCommand", "LoadMap SimpleScene.map" );
+    }
+    
+    function SetPCInfo(InPCJSON) {
+    
+        console.log("SetPCInfo: " + InPCJSON);
+    
+		const elem = document.getElementById("PCInfo");
+		elem.innerHTML = '<span style="white-space: pre-line; font-family: Cambria">' + InPCJSON + "</span>";
+	}
+    
+    function ProcessJS(FuncName, ...Args) {	  
+		console.log("ProcessJS: " + FuncName + " : " + Args.length);
+		// find object
+		var fn = window[FuncName];
+
+		// is object a function?
+		if (typeof fn === "function") 
+		{
+			fn.apply(null, Args);
+		}
+	}	
+		
+	window.InvokeNative = function(InFuncName, ...theArgs) {				
+		if(window.CallNativeWithJSON)
+		{
+			window.CallNativeWithJSON(JSON.stringify({ func: InFuncName, args: theArgs }));
+		}	
+		else
+		{
+			console.log("No Native Invoke: " + JSON.stringify({ func: 			InFuncName, args: theArgs }))
+		}
+	}
+	
+	if(window.RegisterJS)
+	{	
+		window.RegisterJS(ProcessJS);		
+	}
+    
+    
+    </script>
+    
+
+</body>
+</html>

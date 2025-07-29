@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>SPP</title>
+        <meta charset="utf-8">
+		
+		<link rel="stylesheet" href="./fontawesome/css/all.css">       
+        <script type="text/javascript" src="./jQuery/jquery-3.5.1.js"></script>		
+				
+	<style>
+	
+	input[type=text] {
+	  width: 100%;
+	  padding: 1px 1px;
+	  margin: 3px;
+	  box-sizing: border-box;
+	}
+
+	.styled-table {
+		background: #222222;
+		border-collapse: collapse;		
+		font-size: 0.9em;
+		font-family: sans-serif;
+		min-width: 100px;	
+		color: #ffffff;	
+		width: 100%;
+	}
+	
+	.alnright { text-align: right; }
+	
+	.styled-table thead tr {
+		background-color: #009879;
+		color: #ffffff;
+		text-align: left;
+	}
+
+	.styled-table tbody tr {
+		border-bottom: 1px solid #dddddd;
+	}
+	
+	.styled-table tbody td:first-of-type {
+		border-right: 1px solid #dddddd;
+	}
+
+	.styled-table tbody tr:nth-of-type(even) {
+		background-color: #444444;
+	}
+
+
+
+    </style>
+
+    </head>
+    <body>
+		
+	<div id='objProp'></div>
+	
+	<!-- <input type="color" id="head" name="head"  value="#e66465"> -->
+	<script>
+	
+	var NativeTypesPoD = {
+		"float" : "Number",
+		"double" : "Number",
+		"int8_t" : "Number",
+		"uint8_t" : "Number",
+		"int16_t" : "Number",
+		"uint16_t" : "Number",
+		"int32_t" : "Number",
+		"uint32_t" : "Number",
+		"int64_t" : "Number",
+		"uint64_t" : "Number",
+		"bool" : "Bool"
+	};
+	
+	function AppendPath(InValue, CurPath)
+	{
+		if(CurPath.length == 0)
+		{
+			return InValue;
+		}
+		else
+		{
+			return CurPath + "." + InValue;
+		}	
+	}
+	
+	function NativeStructToInput(memberElement, subTypes, tableCol, curPath) {
+	
+		var tbl = document.createElement('table');		
+		var tbdy = document.createElement('tbody');
+		
+		tbl.setAttribute("class", "styled-table");
+		
+		memberElement.value.forEach(function(memberData) {					
+			NativeTypeToInput(memberData, subTypes, tbdy, AppendPath(memberElement.name, curPath));	
+		});
+		
+		tbl.appendChild(tbdy);
+		tableCol.appendChild(tbl);
+	}
+	
+	function NativeEnumToInput(memberElement, subTypeEnum, tableCol, curPath) {
+		
+		var eumSelect = document.createElement("SELECT");
+		eumSelect.setAttribute("id", memberElement.name + "EVALUE");		
+		eumSelect.propPath = AppendPath(memberElement.name, curPath);
+			
+		subTypeEnum.values.forEach(function(curValue) {	
+			var curOpt = document.createElement("option");
+			curOpt.setAttribute("value", curValue);
+			var txtNode = document.createTextNode(curValue);
+			curOpt.appendChild(txtNode);
+
+			eumSelect.appendChild(curOpt);
+		});
+				
+		eumSelect.value = memberElement.value;
+		
+		tableCol.appendChild(eumSelect);
+	}
+	
+	function NativeTypeToInput(memberElement, subTypes, tableBody, curPath)
+	{
+		let memberyTypeName = memberElement.type;
+		//console.log("memberyTypeName: " + memberyTypeName);
+		
+		if( memberyTypeName in NativeTypesPoD )
+		{
+			//console.log(" POD");
+			
+			var tr = document.createElement('tr');
+			var tdN = document.createElement('td');
+			var tdV = document.createElement('td');
+						
+			tdN.setAttribute("class", "alnright");
+			tdN.appendChild(document.createTextNode(memberElement.name));
+	
+			var x = document.createElement("INPUT");
+			x.setAttribute("type", "text");
+			x.setAttribute("value", memberElement.value);
+			x.propPath = AppendPath(memberElement.name, curPath);
+			
+			if(NativeTypesPoD[memberyTypeName] == "Number")
+			{
+				setInputFilter(x, function(value) {
+				  return /^-?\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+				});
+			}
+
+			tdV.appendChild(x);
+			
+			tr.appendChild(tdN);
+			tr.appendChild(tdV);
+			
+			tableBody.appendChild(tr);
+		}
+		else if( memberyTypeName in subTypes )
+		{
+			let curSubType = subTypes[memberyTypeName];		
+							
+			var tr = document.createElement('tr');
+			var tdN = document.createElement('td');
+			var tdV = document.createElement('td');
+			
+			tdN.setAttribute("class", "alnright");
+			tdN.appendChild(document.createTextNode(memberElement.name));
+				
+			//console.log(" SUB");
+			if( curSubType.type == "enum" )
+			{
+				//console.log("ENUM");				
+				NativeEnumToInput(memberElement, curSubType, tdV, curPath);
+			}
+			else
+			{
+				//console.log(" SUB");
+				NativeStructToInput(memberElement, subTypes, tdV, curPath);				
+			}
+			
+			tr.appendChild(tdN);
+			tr.appendChild(tdV);
+				
+			tableBody.appendChild(tr);
+		}
+	}
+	
+	function generateObjTable(divID, TableData, subTypes) {
+		$(divID).empty();
+		
+		var tbl = document.createElement('table');		
+		var tbdy = document.createElement('tbody');
+		
+		tbl.setAttribute("class", "styled-table");
+	
+		TableData.forEach(function(memberData) {					
+			NativeTypeToInput(memberData, subTypes, tbdy, "");	
+		});
+		
+		tbl.appendChild(tbdy);
+		
+		$(divID).append(tbl);
+	}
+	
+	/*
+		
+	var subTypeInfo =  String.raw`{
+		"Vector3" : { 
+			"type" : "struct"	
+		},
+		"EShapeOp" : {
+				"type" : "enum",
+				"values" : 
+				[
+					"Add",
+					"Subtract",
+					"Intersect",
+					"SmoothAdd"
+				]
+		}		
+	}`;
+	
+	//const subTypeObj = JSON.parse(subTypeInfo);
+	
+	var objectDataInfo = String.raw`[
+		{
+			"name" : "_translation",
+			"type" : "Vector3",
+			"value" : 
+			[
+				{
+					"name" : "x",
+					"type" : "float",
+					"value" : "0"
+				},
+				{
+					"name" : "y",
+					"type" : "float",
+					"value" : "0"
+				},
+				{
+					"name" : "z",
+					"type" : "float",
+					"value" : "0"
+				}
+			]
+		},
+		{
+			"name" : "_rotation",
+			"type" : "Vector3",
+			"value" : 
+			[
+				{
+					"name" : "x",
+					"type" : "float",
+					"value" : "0"
+				},
+				{
+					"name" : "y",
+					"type" : "float",
+					"value" : "0"
+				},
+				{
+					"name" : "z",
+					"type" : "float",
+					"value" : "0"
+				}
+			]
+		},
+		{
+			"name" : "_scale",
+			"type" : "float",
+			"value" : "1"
+		},
+		{
+			"name" : "_shapeOp",
+			"type" : "EShapeOp",
+			"value" : "Add"
+		},
+		{
+			"name" : "_extents",
+			"type" : "Vector3",
+			"value" : 
+			[
+				{
+					"name" : "x",
+					"type" : "float",
+					"value" : "1"
+				},
+				{
+					"name" : "y",
+					"type" : "float",
+					"value" : "1"
+				},
+				{
+					"name" : "z",
+					"type" : "float",
+					"value" : "1"
+				}
+			]
+		}
+	]`;
+	
+	
+	const objectData = JSON.parse(objectDataInfo);	
+	generateObjTable("objProp",objectData,subTypeObj);
+	*/
+	
+	// Restricts input for the given textbox to the given inputFilter function.
+	function setInputFilter(textbox, inputFilter) {
+	  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+		textbox.addEventListener(event, function() {
+		  if (inputFilter(this.value)) {
+			this.oldValue = this.value;
+			this.oldSelectionStart = this.selectionStart;
+			this.oldSelectionEnd = this.selectionEnd;
+		  } else if (this.hasOwnProperty("oldValue")) {
+			this.value = this.oldValue;
+			this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+		  } else {
+			this.value = "";
+		  }
+		});
+	  });
+	}
+
+	$(document).on("keypress", "input", function(e){
+        if(e.which == 13){
+			//unselect
+			$(this).blur();			
+			
+			if("propPath" in this)
+			{
+				console.log("propPath:" + this.propPath);
+				
+				if(window.CallNativeWithJSON != null)
+				{
+					window.CallNativeWithJSON(JSON.stringify({ func: "PropertyChanged", args: [ this.propPath, $(this).val() ] }));
+				}
+			}
+        }
+    });
+	
+	
+	
+	$(document).on("change", "select", function(e){
+        console.log("select cahnged");
+		
+		if("propPath" in this)
+		{
+			console.log("propPath:" + this.propPath);
+			
+			if(window.CallNativeWithJSON != null)
+			{
+				window.CallNativeWithJSON(JSON.stringify({ func: "PropertyChanged", args: [ this.propPath, $(this).val() ] }));
+			}
+		}
+    });
+	
+	function UpdateObjectProperties(InObjectJSONStr, InObjectTypeInfoStr)
+	{
+		const objectData = JSON.parse(InObjectJSONStr);	
+		const subTypeObj = JSON.parse(InObjectTypeInfoStr);	
+		generateObjTable("#objProp",objectData,subTypeObj);
+	}
+	
+	function detectBlur() 
+	{
+		console.log("detectBlur");
+	}
+
+	function detectFocus() 
+	{
+		console.log("detectFocus");
+	}
+
+	window.addEventListener ? window.addEventListener('focus', detectFocus, true) : window.attachEvent('onfocusout', detectFocus);  
+    window.addEventListener ? window.addEventListener('blur', detectBlur, true) : window.attachEvent('onblur', detectBlur);
+	
+	window.RegisterJSFunction("UpdateObjectProperties", UpdateObjectProperties);
+	
+	</script>
+
+    </body>
+	
+</html>

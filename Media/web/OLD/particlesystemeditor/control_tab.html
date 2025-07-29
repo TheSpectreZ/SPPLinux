@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Particle System Editor</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    
+		<link rel="stylesheet" type="text/css" href="../litegraph.js/css/litegraph.css">
+		<script type="text/javascript" src="../litegraph.js/SPPlitegraph.core.js"></script>
+		
+		<script type="text/javascript" src="nodes/Math.js"></script>
+		<script type="text/javascript" src="nodes/ParticleSystem.js"></script>
+
+		<script type="text/javascript" src="../chart.js/dist/chart.umd.js"></script>
+		<script type="text/javascript" src="../chartjs-plugin-dragdata/chartjs-plugin-dragdata.min.js"></script>
+	
+		<style>
+			html,body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				background-color: #333;
+				color: #EEE;
+				font: 14px Tahoma;
+			}
+
+			#main {
+				width: 100%;
+				height: 100%;
+				background-color: #222;
+			}
+
+			.litegraph-editor {
+			    width: 100%;
+			    height: 100%;
+			    margin: 0;
+			    padding: 0;
+
+			    background-color: #333;
+			    color: #eee;
+			    font: 14px Tahoma;
+
+			}
+
+			.litegraph-editor h1 {
+			    font-family: "Metro Light", Tahoma;
+			    color: #ddd;
+			    font-size: 28px;
+			    padding-left: 10px;
+			    /*text-shadow: 0 1px 1px #333, 0 -1px 1px #777;*/
+			    margin: 0;
+			    font-weight: normal;
+			}
+
+			.litegraph-editor h1 span {
+			    font-family: "Arial";
+			    font-size: 14px;
+			    font-weight: normal;
+			    color: #aaa;
+			}
+
+			.litegraph-editor h2 {
+			    font-family: "Metro Light";
+			    padding: 5px;
+			    margin-left: 10px;
+			}
+
+			.litegraph-editor * {
+			    box-sizing: border-box;
+			    -moz-box-sizing: border-box;
+			}
+
+			.litegraph-editor .content {
+			    position: relative;
+			    width: 100%;
+			    height: calc(100% - 80px);
+			    background-color: #1a1a1a;
+			}
+
+			.litegraph-editor .header,
+			.litegraph-editor .footer {
+			    position: relative;
+			    height: 40px;
+			    background-color: #333;
+				display: flex;
+			    /*border-radius: 10px 10px 0 0;*/
+			}
+
+			.litegraph-editor .tools,
+			.litegraph-editor .tools-left,
+			.litegraph-editor .tools-right {
+			    position: absolute;
+			    top: 2px;
+			    right: 0px;
+			    vertical-align: top;
+			
+			    margin: 2px 5px 0 0px;
+			}
+
+			.litegraph-editor .tools-left {
+			    right: auto;
+			    left: 4px;
+			}
+
+			.litegraph-editor .footer {
+			    height: 40px;
+			    position: relative;
+			    /*border-radius: 0 0 10px 10px;*/
+			}
+
+			.litegraph-editor .miniwindow {
+			    background-color: #333;
+			    border: 1px solid #111;
+			}
+
+			.litegraph-editor .miniwindow .corner-button {
+			    position: absolute;
+			    top: 2px;
+			    right: 2px;
+			    font-family: "Tahoma";
+			    font-size: 14px;
+			    color: #aaa;
+			    cursor: pointer;
+			}
+
+			/* BUTTONS **********************/
+
+			.litegraph-editor .btn {
+			    /*font-family: "Metro Light";*/
+			    color: #ccc;
+			    font-size: 20px;
+			    min-width: 30px;
+			    /*border-radius: 0.3em;*/
+			    border: 0 solid #666;
+			    background-color: #000000;
+			    box-shadow: 0 0 3px black;
+			    padding: 4px 10px;
+				margin: 5px 5px;
+			    cursor: pointer;
+			    transition: all 1s;
+			    -moz-transition: all 1s;
+			    -webkit-transition: all 0.4s;
+			}
+
+			.litegraph-editor button:hover {
+			    background-color: #999;
+			    color: #fff;
+			    transition: all 1s;
+			    -moz-transition: all 1s;
+			    -webkit-transition: all 0.4s;
+			}
+
+			.litegraph-editor button:active {
+			    background-color: white;
+			}
+
+			.litegraph-editor button.fixed {
+			    position: absolute;
+			    top: 5px;
+			    right: 5px;
+			    font-size: 1.2em;
+			}
+
+			.litegraph-editor button img {
+			    margin: -4px;
+			    vertical-align: top;
+			    opacity: 0.8;
+			    transition: all 1s;
+			}
+
+			.litegraph-editor button:hover img {
+			    opacity: 1;
+			}
+
+			.litegraph-editor .header button {
+			    height: 32px;
+			    vertical-align: top;
+			}
+			
+			.litegraph-editor .toolbar-widget {
+			    display: inline-block;
+			}
+
+			.litegraph-editor .editor-area {
+			    width: 100%;
+			    height: 100%;
+			}
+
+			.content {
+				padding-top: 10px;
+				background-color: #222;
+			}
+
+			.curveEditor {
+				background-color: #222;
+			}
+		</style>
+
+	</head>
+    <body>
+
+		<div id="main">
+			
+			<div class="litegraph-editor">
+				
+				<div class="header">
+					<button class="btn" onclick="javascript:Compile()">Compile</button>
+					<button class="btn" id="closeButton" onclick="javascript:CloseCurveTab()" style="display: none;" >Back</button>
+					<button class="btn" id="addNodeButton" onclick="javascript:AddNode()" style="display: none;" >Add Node</button>
+				</div>
+				
+				<div class="content">
+					
+						<div id="graphTab">
+							<canvas class="graphcanvas lgraphcanvas myGraph" width="1024" height="578" tabindex="10" id='mycanvas'></canvas>
+						</div>
+						
+						<div class="curveEditor" id="curveTab">
+							
+						</div>
+				</div>
+				
+			</div>	
+		</div>
+			
+			<script>
+				
+			if(!window.InvokeNative) {
+			    window.InvokeNative = function (InFuncName, ...theArgs) {
+			        console.log("No Native Invoke: " + JSON.stringify( {func: InFuncName, args: theArgs} ))
+			    }
+			}
+
+			const graph = new LGraph();
+    		const Lcanvas = new LGraphCanvas("#mycanvas", graph);
+
+			let EditorTab = [];
+			EditorTab.push( document.getElementById("graphTab") );
+			EditorTab.push( document.getElementById("curveTab") );
+			
+			let BackButton = document.getElementById("closeButton");
+			let AddNodeButton = document.getElementById("addNodeButton");
+
+			var globalCurveID = 0;
+			var currentCurveID = 0;
+			var currentCurveNode = null;
+			var curveDiv = document.getElementById("curveTab");
+			var curveDict = {};
+
+			// Particle System
+			function ParticleSystemNode() {
+				
+				this.properties = { layerCount: 1 };
+
+				this.addInput("Emitter" + this.properties.layerCount, "emitter");
+
+				this.addWidget(
+					"button",
+					"Add",
+					0, 
+					function(value,widget,node) {
+					node.addInput("Emitter" + (++node.properties.layerCount), "emitter");
+					graph.setDirtyCanvas(true, true);
+				}, {width: 100, x: 130, y: 10} ) ;
+
+				this.addWidget("button","Remove","", function(value,widget,node){
+					
+					if(node.properties.layerCount == 1)
+						return;
+
+					node.removeInput( --node.properties.layerCount ); // cause Input Index starts from 0 and Emitter Index starts from 1
+					graph.setDirtyCanvas(true, true);
+				}, {width: 100, x: 130, y: 40});
+			}
+			
+			ParticleSystemNode.prototype.onConnectionsChange = function(Type, slot, bConnected, linkInfo, inputInfo){
+				if( !linkInfo || Type != LiteGraph.INPUT)
+					return;
+
+				const output = graph.getNodeById(linkInfo.origin_id);
+				output.properties.layerIndex = bConnected ? slot : -1;
+			}
+
+			ParticleSystemNode.prototype.onExecute = function() {
+
+				for(var i = 0; i < this.properties.layerCount; i++) {
+					var data = this.getInputData(i);
+					let JsonString = JSON.stringify(data, 4);
+						
+					window.InvokeNative("EDITOR", "Compile " + i + " " + JsonString);
+				}
+			}
+
+			ParticleSystemNode.title = "Particle System";
+			LiteGraph.registerNodeType("ParticleSystem", ParticleSystemNode);
+
+			const PS = LiteGraph.createNode("ParticleSystem");
+			PS.pos = [300, 100];
+			graph.add(PS);
+			
+			function Compile() {
+				graph.start();
+				graph.stop();
+			}
+
+			function OnSave(savePath) {
+				
+				const Data = graph.serialize();
+				const JsonString = JSON.stringify(Data, 4);
+				
+				window.InvokeNative("EDITOR", "Serialize " + savePath + " " + JsonString);
+			}
+
+			function OnLoad(InJson) {
+				const Json = JSON.parse(InJson);
+				graph.configure(Json)
+				graph.setDirtyCanvas(true, true);
+			}
+			
+			function OnNew() {
+				graph.clear();
+				graph.add(PS);
+			}
+			
+			function OnResize(width, height) {
+				Lcanvas.resize(width, height - 95);
+			}
+			
+			function OpenCurveTab() {
+				EditorTab[0].style.display = "none";
+				EditorTab[1].style.display = "block";
+				BackButton.style.display = "block";
+				AddNodeButton.style.display = "block";
+			}
+
+			function CloseCurveTab() {
+				
+				EditorTab[0].style.display = "block";
+				EditorTab[1].style.display = "none";
+				BackButton.style.display = "none";
+				AddNodeButton.style.display = "none";
+
+				currentCurveID = null;
+				currentCurveNode = null;
+			}
+
+			function makeDatasets(Specs) {
+			    let dataSet = [];
+			
+			    for(let i = 0; i < Specs.count; i++) {
+			        let specs = {
+			            label: Specs.set[i].label,
+			            data: Specs.set[i].data,
+			        	backgroundColor: Specs.set[i].color,
+						borderColor: Specs.set[i].color,
+			            fill: false,
+			            pointRadius: 10,
+			            pointHitRadius: 25,
+			            showLine: true,
+						borderWidth: 1,
+			        }
+				
+			        dataSet.push(specs);
+			    }
+			
+			    return dataSet;
+			}
+
+			function createChart(canvas, onDragEndFunc, Specs) {
+			
+			    var options = {
+			        type: 'scatter',
+			        data: { datasets: makeDatasets(Specs) },
+			        options: {
+						responsive: false,
+			            layout: {
+			                padding: {
+			                    top: 20,
+			                    left: 20,
+			                    right: 20,
+			                    bottom: 20
+			                }
+			            },
+			            scales: {
+			                y: { min: 0, max: 1 },
+			                x: { min: 0, max: 1 },
+			            },
+			            plugins: {
+			                dragData: {
+			                    round: 1,
+			                    showToolTip: true,
+			                    dragX: true,
+							
+			                    onDragEnd: (e,dI,I,V) => {
+									if(onDragEndFunc)
+			                        	onDragEndFunc (dI,I,V.x,V.y);
+			                    }
+			                }
+			            }
+			        }
+			    }
+			
+			    return new Chart(canvas, options);
+			}
+
+			function ToggleCurve(Index, node) {
+
+				for(var key in curveDict)
+					curveDict[key].style.display = "none";
+
+				curveDict[Index].style.display = "block";
+				
+				currentCurveID = Index;
+				currentCurveNode = node;
+			}
+
+			function GetCurveID() {
+				return globalCurveID++;
+			}
+
+			const MAX_SPLINE_NODES = 10;
+
+			function AddNode() {
+				
+				var type = currentCurveNode.type;
+				var spline = currentCurveNode.properties._spline;
+
+				if(spline.count > MAX_SPLINE_NODES)
+					return;
+
+				if(type == "Math/FloatCurve") {
+					spline.value.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.count += 1;
+				} 
+				else if(type == "Math/Vector2Curve") {
+					spline.sx.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.sy.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.count += 1;
+				}
+				else if(type == "Math/Vector3Curve") {
+					spline.sx.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.sy.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.sz.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.count += 1;
+				}
+				else if(type == "Math/Vector4Curve") {
+					spline.sx.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.sy.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.sz.splice(spline.count - 1, 0,  { "x": 0.5, "y": 1.0 } );
+					spline.count += 1;
+				}
+
+				currentCurveNode._chart.update();
+			}
+
+			function GetComponentFromDataSetIndex(Index, spline) {
+				if(Index == 0) 
+					return spline.sx;
+				else if(Index == 1)
+					return spline.sy;
+				else if(Index == 2)
+					return spline.sz;
+				else if(Index == 3)
+					return spline.sw;
+			} 
+
+			function OnRemoveCurveNode(node) {
+				delete curveDict[node._curveID];
+				node._chart.destroy();
+				curveDiv.removeChild(node._canvas);
+			}
+
+			// Curves
+			function Curve_Float() {
+
+				this._created = false;
+				this._chart = null;
+				this._canvas = null;
+				this._curveID = null;
+				
+				this.properties = {
+					_spline : {
+						count: 2,
+						value: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ],	
+					}
+				};
+					
+				this.addNode = function() {
+					console.log("float add");
+				};
+
+				var that = this;
+
+				this.addWidget("Button", "Open", "" , function(){
+
+					if(!that._created) {
+						that._created = true;
+						that._curveID = GetCurveID();
+					
+						that._canvas = document.createElement("canvas");
+						that._canvas.setAttribute("id", "FloatCurve" + that._curveID);
+						that._canvas.style.width = "800px";
+
+						curveDiv.append(that._canvas);
+						curveDict[that._curveID] = that._canvas;
+					
+						that._chart = createChart(that._canvas, 
+						function(dI, I, x, y){
+							
+							if(I == 0) {
+								var comp = that.properties._spline.value;
+								comp[I].x = 0;
+								that._chart.update();
+							} else if( I == that.properties._spline.count - 1 ) {
+								var comp = that.properties._spline.value;
+								comp[I].x = 1;
+								that._chart.update();
+							}
+						}, 
+						{
+							count: 1,
+							set: [
+								{
+									label: "value",
+									color: "rgba(255, 255, 255, 1)",
+									data: that.properties._spline.value
+								}
+							]
+						});
+					}
+
+					OpenCurveTab();
+					ToggleCurve(that._curveID, that);
+
+				}, {x: 32, y: 10, width: 100});
+
+				this.addOutput("value", "FloatCurve");
+				this.size = [160, 40];
+			}
+
+			Curve_Float.prototype.onExecute = function() {
+				this.setOutputData(0, this.properties._spline);
+			}
+
+			Curve_Float.prototype.onRemoved = function() {
+				OnRemoveCurveNode(this);
+			}
+
+			Curve_Float.title = "Float Curve";
+			LiteGraph.registerNodeType("Math/FloatCurve", Curve_Float);
+
+			function Curve_Vector2() {
+
+				this._created = false;
+				this._chart = null;
+				this._canvas = null;
+				this._curveID = null;
+				
+				this.properties = {
+					_spline : {
+						count: 2,
+						sx: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ],
+						sy: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ]    
+					}
+				};
+
+				var that = this;
+
+				this.addWidget("Button", "Open", "" , function(){
+					
+					if(!that._created) {
+						that._created = true;
+						that._curveID = GetCurveID();
+
+						that._canvas = document.createElement("canvas");
+						that._canvas.setAttribute("id", "Vec2Curve" + that._curveID);
+						that._canvas.style.width = "800px";
+
+						curveDiv.append(that._canvas);
+						curveDict[that._curveID] = that._canvas;
+
+						that._chart = createChart(that._canvas, function(dI, I, x, y){
+							
+							if(I == 0) {
+								var comp = GetComponentFromDataSetIndex(dI, that.properties._spline);
+								comp[I].x = 0;
+								that._chart.update();
+							} else if( I == that._spline.count - 1 ) {
+								var comp = GetComponentFromDataSetIndex(dI, that.properties._spline);
+								comp[I].x = 1;
+								that._chart.update();
+							}
+						}, {
+							count: 2,
+							set: [
+							{
+					                label: "r",
+					                color: "rgba(255, 99, 132, 1)",
+					                data: that.properties._spline.sx
+					            },
+					            {
+					                label: "g",
+					                color: "rgba(99,255, 132, 1)",
+					                data: that.properties._spline.sy
+					            },
+							]
+						});
+					}
+
+					OpenCurveTab();
+					ToggleCurve(that._curveID, that);
+					
+				}, {x: 32, y: 10, width: 100});
+		
+				this.addOutput("value", "Vec2Curve");
+				this.size = [160, 40];
+			}
+
+			Curve_Vector2.prototype.onExecute = function() {
+				this.setOutputData(0, this.properties._spline);
+			}
+
+			Curve_Vector2.prototype.onRemoved = function() {
+				OnRemoveCurveNode(this);
+			}
+
+			Curve_Vector2.title = "Vector2 Curve";
+			LiteGraph.registerNodeType("Math/Vector2Curve", Curve_Vector2);
+			
+			function Curve_Vector3() {
+
+				this._created = false;
+				this._chart = null;
+				this._canvas = null;
+				this._curveID = null;
+				
+				this.properties = {
+					_spline : {
+						count: 2,
+						sx: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ],
+				    	sy: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ],
+				    	sz: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ]					}
+				};
+
+				var that = this;
+
+				this.addWidget("Button", "Open", "" , function(){
+				
+					if(!that._created) {
+						that._created = true;
+						that._curveID = GetCurveID();
+
+						that._canvas = document.createElement("canvas");
+						that._canvas.setAttribute("id", "Vec3Curve" + that._curveID);
+						that._canvas.style.width = "800px";
+
+						curveDiv.append(that._canvas);
+						curveDict[that._curveID] = that._canvas;
+
+						that._chart = createChart(that._canvas, function(dI, I, x, y){
+							
+							if(I == 0) {
+								var comp = GetComponentFromDataSetIndex(dI, that.properties._spline);
+								comp[I].x = 0;
+								that._chart.update();
+							} else if( I == that._spline.count - 1 ) {
+								var comp = GetComponentFromDataSetIndex(dI, that.properties._spline);
+								comp[I].x = 1;
+								that._chart.update();
+							}
+						}, {
+							count: 3,
+							set: [
+							{
+					                label: "r",
+					                color: "rgba(255, 99, 132, 1)",
+					                data: that.properties._spline.sx
+					            },
+					            {
+					                label: "g",
+					                color: "rgba(99,255, 132, 1)",
+					                data: that.properties._spline.sy
+					            },
+					            {
+					                label: "b",
+					                color: "rgba(99,132, 255, 1)",
+					                data: that.properties._spline.sz
+					            },
+							]
+						});
+					}
+					OpenCurveTab();
+					ToggleCurve(that._curveID, that);
+
+				}, {x: 32, y: 10, width: 100});
+
+				this.addOutput("value", "Vec3Curve");
+				this.size = [160, 40];
+			}
+
+			Curve_Vector3.prototype.onExecute = function() {
+				this.setOutputData(0, this.properties._spline);
+			}
+
+			Curve_Vector3.prototype.onRemoved = function() {
+				OnRemoveCurveNode(this);
+			}
+
+			Curve_Vector3.title = "Vector3 Curve";
+			LiteGraph.registerNodeType("Math/Vector3Curve", Curve_Vector3);
+			
+			function Curve_Vector4() {
+
+				this._created = false;
+				this._chart = null;
+				this._canvas = null;
+				this._curveID = null;
+				
+				this.properties = {
+					_spline : {
+						count: 2,
+						sx: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ],
+				    	sy: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ],
+				    	sz: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ],
+				    	sw: [ {"x": 0.0, "y": 1.0}, {"x": 1.0, "y": 1.0} ]
+					}
+				};
+
+				var that = this;
+
+				this.addWidget("Button", "Open", "" , function(){
+
+					if(!that._created) {
+						that._created = true;
+						that._curveID = GetCurveID();
+
+						that._canvas = document.createElement("canvas");
+						that._canvas.setAttribute("id", "Vec4Curve" + that._curveID);
+						that._canvas.style.width = "800px";
+						
+						curveDiv.append(that._canvas);
+						curveDict[that._curveID] = that._canvas;
+
+						that._chart = createChart(that._canvas, function(dI, I, x, y){
+							
+							if(I == 0) {
+								var comp = GetComponentFromDataSetIndex(dI, that.properties._spline);
+								comp[I].x = 0;
+								that._chart.update();
+							} else if( I == that._spline.count - 1 ) {
+								var comp = GetComponentFromDataSetIndex(dI, that.properties._spline);
+								comp[I].x = 1;
+								that._chart.update();
+							}
+						}, {
+							count: 4,
+							set: [
+							{
+					                label: "r",
+					                color: "rgba(255, 99, 132, 1)",
+					                data: that.properties._spline.sx,
+					            },
+					            {
+					                label: "g",
+					                color: "rgba(99,255, 132, 1)",
+					                data: that.properties._spline.sy
+					            },
+					            {
+					                label: "b",
+					                color: "rgba(99,132, 255, 1)",
+					                data: that.properties._spline.sz
+					            },
+					            {
+					                label: "a",
+					                color: "rgba(255,255, 255, 1)",
+					                data: that.properties._spline.sw
+					            },
+							]
+						});
+					}
+					OpenCurveTab();
+					ToggleCurve(that._curveID, that);
+
+				}, {x: 32, y: 10, width: 100});
+
+				this.addOutput("value", "Vec4Curve");
+				this.size = [160, 40];
+			}
+
+			Curve_Vector4.prototype.onExecute = function() {
+				this.setOutputData(0,  this.properties._spline);
+			}
+
+			Curve_Vector4.prototype.onRemoved = function() {
+				OnRemoveCurveNode(this);
+			}
+
+			Curve_Vector4.title = "Vector4 Curve";
+			LiteGraph.registerNodeType("Math/Vector4Curve", Curve_Vector4);
+
+	    	</script>
+		
+    </body>
+</html>
