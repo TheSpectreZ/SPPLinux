@@ -1,13 +1,9 @@
+*.tar.gz
+*.rar
+
 .vscode/
-
 3rdParty/
-3rdParty.tar.gz
-
 3rdPartyPrivate/
-3rdPartyPrivate.tar.gz
-
 DemoAssets/
-DemoAssets.tar.gz
-
 Logging/
 Binaries/__pycache__
