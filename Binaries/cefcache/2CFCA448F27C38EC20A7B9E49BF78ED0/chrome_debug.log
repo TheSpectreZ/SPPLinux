@@ -1,8 +1,0 @@
-[20668:22160:0729/094645.867:WARNING:chrome\browser\signin\account_consistency_mode_manager.cc:72] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
-[20668:22160:0729/094646.463:INFO:CONSOLE:5] "Native Invoke: | {"func":"MouseLock","args":[0]}", source: http://spp/media/web/Game/js/SPPBase.js (5)
-[20668:22160:0729/094646.471:INFO:CONSOLE:5] "Native Invoke: | {"func":"MouseLock","args":[0]}", source: http://spp/media/web/Game/js/SPPBase.js (5)
-[20668:22160:0729/094646.475:INFO:CONSOLE:5] "Native Invoke: | {"func":"MouseLock","args":[0]}", source: http://spp/media/web/Game/js/SPPBase.js (5)
-[20668:22160:0729/094646.480:INFO:CONSOLE:5] "Native Invoke: | {"func":"MenuHandler","args":["MainMenuReady","InitializeMainMenu"]}", source: http://spp/media/web/Game/js/SPPBase.js (5)
-[20668:22160:0729/094646.526:INFO:CONSOLE:16] "ProcessJS: InitializeMainMenu : 1", source: http://spp/media/web/Game/js/SPPBase.js (16)
-[20668:4116:0729/094648.719:WARNING:cef\libcef\common\task_impl.cc:19] No task runner for threadId 5
-[20668:4116:0729/094648.719:WARNING:cef\libcef\common\task_impl.cc:31] No task runner for threadId 5
