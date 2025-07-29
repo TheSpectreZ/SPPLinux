@@ -1,7 +1,6 @@
 #!/bin/bash
 
-NAME=$1
-PORT=$2
+PORT=$1
 
 # Get the directory of the current script
 BINARY_PATH=$(dirname "$(readlink -f "$0")")
@@ -26,4 +25,4 @@ done
 # Export updated LD_LIBRARY_PATH
 export LD_LIBRARY_PATH
 
-./SPPGameServerd -name="$NAME" -port="$PORT"
+./SPPGameServerd -port="$PORT"
